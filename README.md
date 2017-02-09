@@ -58,8 +58,8 @@ Enabling participation:
 
 ## Permissions Model
 
--      |   Presenter   |   Receiver   |   Participant   |
+Roles & Permissions      |   Presenter   |   Receiver   |   Participant   |
 ------------|--------------|--------------|-----------|
 **Send AV**  | Y | N | N     
-**Receive AV**  | N | Y | Y  
+**Receive AV**  | N | Y | N  
 **Text**  | Y | Y | Y      
