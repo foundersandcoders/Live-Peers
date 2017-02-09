@@ -54,3 +54,12 @@ Enabling participation:
   + turn messages into Q&A format
 + Voting service
 + Record metrics e.g. number of attendees - could be used to pitch idea for funding
+
+
+## Permissions Model
+
+-      |   Presenter   |   Receiver   |   Participant   |
+------------|--------------|--------------|-----------|
+**Send AV**  | Y | N | N     
+**Receive AV**  | N | Y | Y  
+**Text**  | Y | Y | Y      
