@@ -1,5 +1,9 @@
 # Live-Peers
 
+1. [Vision](#VISION)
+2. [Permissions Model](#Permissions-Model)
+3. [User journeys](#User-journeys)
+
 ## VISION
 
 Enable real-time, peer-to-peer participation and sharing of content.
@@ -57,9 +61,24 @@ Enabling participation:
 
 
 ## Permissions Model
+This needs to be considered _before_ we flesh out our user journeys. In this project, we need to bake in the potential for our users' roles to change.
 
-Roles & Permissions      |   Presenter   |   Receiver   |   Participant   |
+Roles & Permissions      |   Mentor   |   Moderator   |   Student   |
 ------------|--------------|--------------|-----------|
 **Send AV**  | Y | N | N     
 **Receive AV**  | N | Y | N  
 **Text**  | Y | Y | Y      
+
+## User journeys
+
+**As a** mentor
+**I would like to** share my content (across campuses)
+**So that** paricipation is not limited by location
+
+**As a** moderator
+**I would like to** access content and be able to share it
+**So that** those in my location can participate
+
+**As a** student
+**I would like to** access remote content and share my own messages
+**So that** I can actively participate in the learning experience
