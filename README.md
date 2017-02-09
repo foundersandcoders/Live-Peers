@@ -39,3 +39,13 @@ Enabling participation:
 2. Level of authentication - determine identity of:
   + Presenter
   + Participant(s)
+
+## Beyond this sprint:
++ Preserving live content - copy & paste-able code / docs.
+  + Not just a screencast of the presenter's text editor, but a hackpad-style / figma-style multiple author capability
+  + Read-only version i.e. include admin rights
++ Additions to text service
+  + incorporate markdown syntax and is linkable to github repos and issues
+  + turn messages into Q&A format
++ Voting service
++ Record metrics e.g. number of attendees - could be used to pitch idea for funding
