@@ -27,9 +27,11 @@ Enabling participation:
 
 **Necessary feature:** Request authentication for the creation of a room & joining a room
 
-**UX/UI concerns:** Displaying high definition presentation materials (screen cast) at the same time as presenter video/audio:
-+ Half / half screen - presenter on one side, slides/code on the other side
-+ Audio overlay to full screen cast + subtitles (This particular accessibility concern is unfortunately outside the scope of these two weeks)
+**UX/UI concerns:** Displaying high definition presentation materials (screen cast) at the same time as presenter video/audio. Choose between:
++ Ordinary camera shot of everything at once
++ Two tabs - one with the presenter in the room, another with the slides/code
++ Display both on one tab: one half of screen for presenter, one half for slides/code
++ Full screen cast with audio overlay
 
 ### Stretch goals
 **Problem**: Participation
@@ -41,6 +43,7 @@ Enabling participation:
   + Participant(s)
 
 ## Beyond this sprint:
++ Add subtitles to audio (This particular accessibility concern is unfortunately outside the scope of the first two week sprint)
 + Preserving live content - copy & paste-able code / docs.
   + Not just a screencast of the presenter's text editor, but a hackpad-style / figma-style multiple author capability
   + Read-only version i.e. include admin rights
