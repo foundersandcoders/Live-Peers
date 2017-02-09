@@ -4,6 +4,8 @@
 
 Enable real-time, peer-to-peer participation and sharing of content.
 
+[![Join the chat at https://gitter.im/foundersandcoders/Live-Peers](https://badges.gitter.im/foundersandcoders/Live-Peers.svg)](https://gitter.im/foundersandcoders/Live-Peers?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### Relevant scenarios in FAC
 + Presentations from external speakers
 + Project show & tells, whether this is from alumni or students
