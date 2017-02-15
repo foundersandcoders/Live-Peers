@@ -30,19 +30,32 @@ Determine identity of:
   + Participant(s)
 
 ## Wireframes
-**Mentor journey**  
-Login page  
-Mentor view  
-Mentor view (Student and Moderator Details)  
+#### Mentor journey
 
-**Student journey**  
-Student Join Page  
-Student View  
+Create page  
+![](./wireframes/1-create-page.png)  
 
-**Moderator journey**  
-(Starts as student journey)  
-Student view (Enter Pin to View Mentor)  
-Moderator View  
+Chat/AV view  
+![](./wireframes/2-chatAV-view.png)  
+
+Chat/AV view - with pop out to show how many students and moderators are online
+![](./wireframes/3-pop-out.png)  
+
+#### Student journey
+Join Page  
+![](./wireframes/4-join-page.png)  
+
+Chat View  
+![](./wireframes/5-chat-view.png)  
+
+#### Moderator journey
+(Starts as a student - see [student journey](#student-journey))  
+
+Chat View - with PIN modal  
+![](./wireframes/6-pin-modal.png)
+
+New window - full screen AV stream  
+![](./wireframes/7-new-AV-window.png)
 
 ## Permissions Model
 
