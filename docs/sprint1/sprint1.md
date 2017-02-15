@@ -1,5 +1,34 @@
 # SPRINT 1
 
+## User journeys
+
+**As a** mentor  
+**I would like to** share my content (across campuses)  
+**So that** paricipation is not limited by location
+
+**As a** moderator  
+**I would like to** access content and be able to share it  
+**So that** those in my location can participate
+
+**As a** student  
+**I would like to** access remote content and share my own messages  
+**So that** I can actively participate in the learning experience
+
+For breakdown into user stories, see github issues.
+
+### Stretch goals
+**Problem:** Participation  
+
+**Feature 1:** Text service for participants
+  + Write a piece of text that everyone else can see
+  + Names being attached to messages
+
+**Feature 1:** Authentication  
+
+Determine identity of:
+  + Presenter
+  + Participant(s)
+
 ## Wireframes
 **Mentor journey**  
 Login page  
@@ -15,20 +44,7 @@ Student View
 Student view (Enter Pin to View Mentor)  
 Moderator View  
 
-### Necessary feature:
-Request authentication for the creation of a room & joining a room
-
-### Stretch goals
-**Problem**: Participation
-1. Text service for participants:
-  + Write a piece of text that everyone else can see
-  + Names being attached to messages
-2. Level of authentication - determine identity of:
-  + Presenter
-  + Participant(s)
-
 ## Permissions Model
-This needs to be considered _before_ we flesh out our user journeys. In this project, we need to bake in the potential for our users' roles to change.
 
 Roles & Permissions      |   Mentor   |   Moderator   |   Student   |
 ------------|--------------|--------------|-----------|
