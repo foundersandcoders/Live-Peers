@@ -1,7 +1,7 @@
 # Live-Peers
 
 1. [Vision](#vision)
-2. [Sprint 1](#sprint1)
+2. [Sprint 1](#sprint-1)
 3. [Future sprints](#future-sprints)
 
 ## VISION
@@ -33,24 +33,7 @@ Enabling participation:
 
 (Useful for all other scenarios too, but no special functionality that would needed in those cases e.g. screencasting)
 
-### User journeys
-
-**As a** mentor  
-**I would like to** share my content (across campuses)  
-**So that** paricipation is not limited by location
-
-**As a** moderator  
-**I would like to** access content and be able to share it  
-**So that** those in my location can participate
-
-**As a** student  
-**I would like to** access remote content and share my own messages  
-**So that** I can actively participate in the learning experience
-
-For breakdown into user stories, see github issues.
-
-### Implementation
 Head [here](docs/sprint1/sprint1.md) for details.
 
 ## FUTURE SPRINTS
-Full [list of ideas](docs/future-sprints.md) for where we want this to go.
+Full [list of ideas](docs/future-sprints/future-sprints.md) for where we want this to go.
