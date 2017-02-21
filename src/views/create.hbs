@@ -1,0 +1,19 @@
+<header>
+  <!-- 'Live Peers' (or application title) -->
+  <h1>{{createtitle}}</h1>
+</header>
+
+<!-- Create form -->
+<form class="login" action="/login" method="post">
+  <fieldset>
+    <legend>Create new session</legend>
+      <label for="username">Username</label>
+        <input id="username" name="Username" type="text" placeholder="type your username" pattern="^[A-Za-z0-9]{1,25}$"/>
+      <label for="password">Password</label>
+        <input id="username" name="Password" type="password" placeholder="type your password" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+      <label for="sessionname">Session name</label>
+        <input id="sessionname" name="Session Name" type="text" placeholder="type the new of the new session" pattern="^[A-Za-z0-9\s]+$"/>
+      <label for="submit">Submit</label>
+        <input type="submit"/>
+  </fieldset>
+</form>
