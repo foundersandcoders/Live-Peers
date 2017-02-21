@@ -3,7 +3,7 @@ module.exports = {
   path: '/',
   handler: (req, reply) => {
     if (req.query) {
-      // If student is trying to join room
+      // Student branch
       if (req.auth.isAuthenticated) {
         // 4. Student is authenticate serve them chat only
         // get roomname, roomid from cookie and store in config, then serve chat only view
@@ -16,6 +16,7 @@ module.exports = {
         reply.view('join', config);
       }
     } else {
+      // Mentor branch
       if (req.auth.isAuthenticated) {
         // 2. Mentor (with cookie) gets av-chat
         let config = {};
