@@ -8,6 +8,7 @@
 + Additions to text service
   + incorporate markdown syntax and is linkable to github repos and issues
   + turn messages into Q&A format
+  + allow two users to chat privately
 + Voting service
 + Record metrics e.g. number of attendees - could be used to pitch idea for funding
 
