@@ -2,20 +2,29 @@ module.exports = {
   method: 'GET',
   path: '/',
   handler: (req, reply) => {
-    if (req.auth.isAuthenticated) {
-      let config = {};
-      /*
-      get roomname, roomid and endpointid and inject it into view
-      */
-      reply.view('home', config);
-    } else if (req.query) {
+    if (req.query) {
       // If student is trying to join room
-      let roomid = req.query.roomid;
-      let config = {};
-      // Look up room details and store in config
-      reply.view('chat-only', config);
+      if (req.auth.isAuthenticated) {
+        // 4. Student is authenticate serve them chat only
+        // get roomname, roomid from cookie and store in config, then serve chat only view
+        let config = {};
+        reply.view('chat-only', config);
+      } else {
+        // 3. Student wants to join room
+        // get roomname, roomid then serve view (with roomid and roomname params)
+        let config = {};
+        reply.view('join', config);
+      }
     } else {
-      reply.view('create');
+      if (req.auth.isAuthenticated) {
+        // 2. Mentor (with cookie) gets av-chat
+        let config = {};
+        // get roomname, roomid and endpointid and inject it into view
+        reply.view('av-chat', config);
+      } else {
+        // 1. Mentor creates room
+        reply.view('create');
+      }
     }
   }
 };
