@@ -18,7 +18,7 @@ module.exports = {
             // Serve create view
           }
         } else {
-          // Process create POST
+          // Process create POST (store new room & endpoint) set Cookie and redirect to '/'
         }
       }
     }
