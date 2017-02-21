@@ -1,0 +1,28 @@
+<header>
+  <!-- E.G. 'my webrtc workshop LIVE AT [www.livepeers.com?sessionid=EFGHI] CODE 6789' -->
+  <ul>
+    <li><h1>{{roomname}}</h1></li>
+    <li>LIVE AT <code>{{roomurl}}</code></li>
+    <li>CODE <code>{{pin}}</code></li>
+  </ul>
+</header>
+
+<section>
+  <!-- Chat Partial -->
+  {{> chat}}
+</section>
+
+
+<section>
+  <!-- AV Partial -->
+  {{> av}}
+</section>
+
+<!-- End Session Anchor -->
+<section>
+  <a href="/endsession">
+    <!-- If font awesome is used, this markup would display telephone icon (http://fontawesome.io/icon/phone/) -->
+    <i class="fa fa-phone" aria-hidden="true"></i>
+    End Session
+  </a>
+</section>
