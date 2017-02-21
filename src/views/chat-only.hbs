@@ -1,0 +1,26 @@
+<section>
+  <!-- Chat Partial -->
+  {{> chat}}
+</section>
+
+<!-- Controls -->
+<section>
+  <a href="#">
+    <!-- If font awesome is used, this markup would display video icon (http://fontawesome.io/icon/video-camera/) -->
+    <i class="fa fa-video-camera" aria-hidden="true"></i>
+    Request Live Stream from {{mentorname}}
+  </a>
+  <a href="/endsession">
+    <!-- If font awesome is used, this markup would display telephone icon (http://fontawesome.io/icon/phone/) -->
+    <i class="fa fa-phone" aria-hidden="true"></i>
+    Leave Session
+  </a>
+</section>
+
+<!-- (initially Hidden) Pin Model -->
+<form action="#" hidden>
+  <label for="pininput">
+    <!-- Four digit pin -->
+    <input type="password" name="Pin Input" id="pininput" pattern="\d{4}"/>/>
+  </label>
+</form>
