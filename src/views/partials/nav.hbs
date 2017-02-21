@@ -1,0 +1,11 @@
+<nav>
+  <h2>Online Users</h2>
+  <ul>
+  {{#each users}}
+    <li>
+      <!-- Simple Example: 'John Adamds(moderator) -->
+      <h4>{{this.name}}<span>({{this.role}})</span></h4>
+    </li>
+  {{/each}}
+  </ul>
+</nav>
