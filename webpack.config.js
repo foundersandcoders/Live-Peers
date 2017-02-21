@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   // Set entry file
   entry: {
-    main: './src/lib/index.js'
+    main: './src/lib/js/index.js'
   },
   // set output JS file
   output: {
