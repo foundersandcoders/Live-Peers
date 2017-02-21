@@ -1,0 +1,15 @@
+<header>
+  <!-- E.g 'my cool session' -->
+  <h1>{{jointitle}}</h1>
+</header>
+
+<!-- Create form -->
+<form action="/join" method="post">
+  <fieldset>
+    <legend>Join session</legend>
+      <label for="name">Username</label>
+        <input id="name" name="Name" type="text" placeholder="type your name" pattern="^[A-Za-z\s]{1,25}$"/>
+      <label for="submit">Submit</label>
+        <input type="submit"/>
+  </fieldset>
+</form>
