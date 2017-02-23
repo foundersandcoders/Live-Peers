@@ -1,8 +1,13 @@
 
-<div class="videocontainer">
-  <video class="myvideo"></video>
-  <video class="peervideo"></video>
+
+<!-- Holds own video, and peer video -->
+<div class="full-page-container">
+  <div class="videocontainer">
+    <video class="myvideo video"></video>
+    <video class="peervideo video"></video>
+  </div>
 </div>
+
 
 
 <!-- SOCKET.IO SCRIPT -->
@@ -25,7 +30,7 @@
         webrtc.addMyMediaStreamToVideo(myvideo)
         webrtc.peervideo = peervideo
         webrtc.onRTC = () => {
-          console.log('yes')
+          myvideo.classList.add('roundify')
         }
   // Register Callback
   mycomms.registerHandler('CHATROOM', 'REGISTER', (from) =>{
