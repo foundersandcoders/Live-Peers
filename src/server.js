@@ -8,15 +8,6 @@ const routes = require('./routes/index.js');
 
 const server = new Hapi.Server();
 
-const options = {
-  password: process.env.COOKIE_PASSWORD,
-  cookie: 'livepeerscookie',
-  ttl: 24 * 60 * 60 * 1000,
-  isSecure: process.env.NODE_ENV === 'PRODUCTION',
-  isHttpOnly: false,
-  redirectTo: '/'
-};
-
 server.connection({
   port: process.env.PORT || 8080,
   routes: {
@@ -40,7 +31,17 @@ server.register([Vision, Inert, CookieAuth], (err) => {
     layout: 'layout',
     partialsPath: 'views/partials/'
   });
+
+  const options = {
+    password: process.env.COOKIE_PASSWORD,
+    cookie: 'livepeerscookie',
+    ttl: 24 * 60 * 60 * 1000,
+    isSecure: process.env.NODE_ENV === 'PRODUCTION',
+    isHttpOnly: false,
+    redirectTo: '/'
+  };
   server.auth.strategy('session', 'cookie', options);
+
   server.route(routes);
 });
 
