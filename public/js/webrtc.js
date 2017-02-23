@@ -1,13 +1,11 @@
-// Modified To either send stream, receive stream, or both
 class WebRTC {
-  // Takes comms (could refactor to use class extends syntax)
+  // Takes comms object initially
   constructor (comms) {
     this.comms = comms;
     this.app = 'WEBRTC';
     this._state = 'IDLE';
     // Register Handlers
     this.comms.registerHandler(this.app, 'CALL_REQUEST', this.requestIncomingCall.bind(this));
-    this.comms.registerHandler(this.app, 'REQ_CALL', this.requestIncomingCall.bind(this));
     this.comms.registerHandler(this.app, 'DENIED', this.callDenied.bind(this));
     this.comms.registerHandler(this.app, 'CALL_ACCEPT', this.callAccepted.bind(this));
     this.comms.registerHandler(this.app, 'OFFER', this.receivedIncomingSDPoffer.bind(this));
@@ -16,8 +14,8 @@ class WebRTC {
     this.comms.registerHandler(this.app, 'SDP_ANSWER', this.receivedIncomingSDPanswer.bind(this));
     this.comms.registerHandler(this.app, 'CANDIDATE', this.receivedCandidate.bind(this));
     this.comms.registerHandler(this.app, 'END_CALL', this.endCall.bind(this));
-    // Placeholder video element
-    this.ownvideodump = null;
+
+    // For peer video output
     this.peervideo;
   }
   // Gets owner media stream (returns a Promise)
@@ -42,10 +40,7 @@ class WebRTC {
         video.onloadedmetadata = (e) => {
           video.play();
         };
-        // Add stream to ownvideodump
-        this.ownvideodump = video;
-        // Resolve
-        return Promise.resolve(this.pc);
+        return;
       });
   }
 
@@ -53,8 +48,6 @@ class WebRTC {
   createPeerConnection (from) {
     // Define initial peer connection object
     this.pc = new RTCPeerConnection();
-    // Add stream for own stream
-    this.getMediaStream().then((stream) => this.pc.addStream(stream));
     // Add Ice Candidate Listener
     this.pc.onicecandidate = (e) => {
       if (e.candidate != null) {
@@ -63,13 +56,16 @@ class WebRTC {
     };
     // Add Add stream listener (incoming stream), and append to placeholder video element
     this.pc.onaddstream = (e) => {
-      console.log('hello');
       this.peervideo.srcObject = e.stream;
       this.peervideo.play();
     };
+    // Add stream for own stream
+    var prom = this.getMediaStream();
+
+    prom.then((stream) => this.pc.addStream(stream));
 
     // Return PC
-    return this.pc;
+    return prom;
   }
 
   // 1. Get video from peer (called by client)
@@ -79,18 +75,17 @@ class WebRTC {
   }
 
   requestIncomingCall (from) {
-  // 2. Only accept a call if we're currently idle
+  // 2. Only accept a call if we're currently idle (moderator)
     if (this._state !== 'IDLE') {
       this.comms.send(this.app, 'DENIED', from, '');
     } else {
       // Change state to receiving call
       this._state = 'RX';
-      // Save Endpoint
-      this.party = from;
       // Set up peer connection
-      this.createPeerConnection(from);
+      this.createPeerConnection(from).then(() => {
+        this.comms.send(this.app, 'CALL_ACCEPT', from, '');
+      });
       // Send accept message
-      this.comms.send(this.app, 'CALL_ACCEPT', from, '');
     }
   }
   // Alert to say recipient is busy
@@ -98,32 +93,32 @@ class WebRTC {
     alert("Can't call " + from + ', the line is busy...');
   }
 
-  // 3.
+  // 3. Mentor
   callAccepted (from) {
     // Change state to in call
     this._state = 'TX';
-
     // Make this.pc available
-    this.createPeerConnection(from);
-    // Make offers ONLY if own media stream is active
-    const offerOptions = {
-      offerToReceiveAudio: 0,
-      offerToReceiveVideo: 1
-    };
-    // then create offer from new PC
-    this.pc.createOffer(
-          offerOptions
-        ).then((offer) => {
-          // Save the offer description
-          this.pc.setLocalDescription(offer);
-          // Send the offer
-          this.comms.send(this.app, 'OFFER', from, offer);
-        },
-          // Reject handler
-          onCreateSessionDescriptionError
+    this.createPeerConnection(from).then(() => {
+      // Make offers ONLY if own media stream is active
+      const offerOptions = {
+        offerToReceiveAudio: 0,
+        offerToReceiveVideo: 1
+      };
+      // then create offer from new PC
+      this.pc.createOffer(
+            offerOptions
+          ).then((offer) => {
+            // Save the offer description
+            this.pc.setLocalDescription(offer);
+            // Send the offer
+            this.comms.send(this.app, 'OFFER', from, offer);
+          },
+            // Reject handler
+            onCreateSessionDescriptionError
         );
+    });
   }
-  // 4. Save offer from other endpoint
+  // 4. Save offer from other endpoint (moderators window)
   receivedIncomingSDPoffer (from, data) {
     // When receiving a call
     if (this._state === 'RX') {
@@ -146,6 +141,7 @@ class WebRTC {
   }
   // 5. Received answer
   receivedIncomingSDPanswer (from, data) {
+    console.log('receivedIncomingSDPanswer');
     // When receiving a call
     if (this._state === 'TX') {
       this.pc.setRemoteDescription(data).then(
@@ -156,6 +152,7 @@ class WebRTC {
   }
 
   receivedCandidate (from, data) {
+    console.log('receivedCandidate');
     if (this._state !== 'IDLE') {
       const candidate = new RTCIceCandidate(data);
       this.pc.addIceCandidate(candidate)

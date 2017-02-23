@@ -1,9 +1,8 @@
-
-// Require room
+// TEMP. Require room
 const room = require('../myroom.js');
 const roomname = Object.keys(room).toString();
 
-// Send if not authenticated (when initiating webrt)
+// TEMP. Send if not authenticated (when initiating webrt)
 const deniedmsg = (from, to) => {
   return JSON.stringify({
     roomid: roomname,
@@ -16,7 +15,7 @@ const deniedmsg = (from, to) => {
 };
 
 const servercomms = (io, ws, msg) => {
-  // Temporary Solution
+  // TEMP. Return if no msg (disconnected socket)
   if (!msg) return;
   // Parse message
   const parsed = JSON.parse(msg);
