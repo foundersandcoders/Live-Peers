@@ -8,8 +8,6 @@ const routes = require('./routes/index.js');
 
 const server = new Hapi.Server();
 
-const rooms = {};
-
 server.connection({
   port: process.env.PORT || 8080,
   routes: {
