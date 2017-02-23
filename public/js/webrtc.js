@@ -23,6 +23,9 @@ class WebRTC {
     this.comms.registerHandler(this.app, 'CANDIDATE', this.receivedCandidate.bind(this));
     this.comms.registerHandler(this.app, 'END_CALL', this.endCall.bind(this));
 
+    // Callback register after complete
+    this.onRTC = (func) =>
+
     // Holds peer video output
     this.peervideo;
   }
@@ -62,6 +65,7 @@ class WebRTC {
     this.pc.onaddstream = (e) => {
       this.peervideo.srcObject = e.stream;
       this.peervideo.play();
+      this.onRTC();
     };
     // Add stream for own stream
     var prom = this.getMediaStream();
@@ -71,7 +75,7 @@ class WebRTC {
   }
 
   // 1. Get video from peer
-  getPeersMediaStream (peerendpointid) {
+  callEndpoint (peerendpointid) {
     // Make a request to peer
     this.comms.send(this.app, 'CALL_REQUEST', peerendpointid, '');
   }
@@ -146,8 +150,8 @@ class WebRTC {
     // When receiving a call
     if (this.state === 'TX') {
       this.pc.setRemoteDescription(data).then(
-        () => console.log('setRemoteDescription COMPLETE'),
-        () => console.log('setRemoteDescription FAILED')
+        () => { /* console.log('setRemoteDescription COMPLETE') */ },
+        () => { /* console.log('setRemoteDescription COMPLETE') */ }
       );
     }
   }
@@ -157,12 +161,9 @@ class WebRTC {
     if (this.state !== 'IDLE') {
       const candidate = new RTCIceCandidate(data);
       this.pc.addIceCandidate(candidate)
-        .then(() => {
-          console.log('Found ICE candidates', this.pc);
-        },
-          (err) => {
-            console.log("ERROR: Can't Find ICE candidates", err, this.pc);
-          }
+        .then(
+          () => { /* console.log('Found ICE candidates', this.pc)  */ },
+          () => { /* console.log("ERROR: Can't Find ICE candidates" */ }
         );
     }
   }
@@ -172,6 +173,6 @@ class WebRTC {
 
 }
 
-const onCreateSessionDescriptionError = (error) => {
-  console.log(error.toString());
+const onCreateSessionDescriptionError = () => {
+  /* console.log(error.toString()); */
 };
