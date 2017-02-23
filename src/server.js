@@ -1,14 +1,13 @@
 const Hapi = require('hapi');
-const cookieAuth = require('hapi-auth-cookie');
-const vision = require('vision');
-const inert = require('inert');
+const CookieAuth = require('hapi-auth-cookie');
+const Vision = require('vision');
+const Inert = require('inert');
+const Path = require('path');
+const env = require('env2')('./config.env');
+const routes = require('./routes/index.js');
+
 const server = new Hapi.Server();
-const env = require('env2');
 
-// Install Environment Variables
-env('./config.env');
-
-// Set Cookie Options
 const options = {
   password: process.env.COOKIE_PASSWORD,
   cookie: 'livepeerscookie',
@@ -16,23 +15,20 @@ const options = {
   isSecure: process.env.NODE_ENV === 'PRODUCTION',
   isHttpOnly: false,
   redirectTo: '/'
-};  // make this :)
+};
 
-// Set Connection
 server.connection({
   port: process.env.PORT || 8080,
   routes: {
     files: {
-      relativeTo: __dirname
+      relativeTo: path.join(__dirname, '../public')
     }
   }
 });
 
-// Register Plugins
-server.register([vision, inert, cookieAuth], (err) => {
+server.register([Vision, Inert, CookieAuth], (err) => {
   if (err) { throw err; }
 
-    // Register views
   server.views({
     engines: {
       hbs: require('handlebars')
@@ -45,24 +41,7 @@ server.register([vision, inert, cookieAuth], (err) => {
     partialsPath: 'views/partials/'
   });
   server.auth.strategy('session', 'cookie', options);
-
-  const fileRoute = {
-    method: 'GET',
-    path: '/{path*}',
-    handler: {
-      directory: {
-        path: '../public'
-      }
-    }
-  };
-  const joinRoute = {
-    method: 'GET',
-    path: '/',
-    handler: (req, reply) => {
-      reply.view('join.hbs');
-    }
-  };
-  server.route([fileRoute, joinRoute]);
+  server.route(routes);
 });
 
 module.exports = server;
