@@ -17,6 +17,7 @@ class WebRTC {
     this.comms = comms;
     this.app = 'WEBRTC';
     this.state = 'IDLE';
+    this.party;
     // Register Handlers
     this.comms.registerHandler(this.app, 'CALL_REQUEST', this.requestIncomingCall.bind(this));
     this.comms.registerHandler(this.app, 'DENIED', this.callDenied.bind(this));
@@ -30,6 +31,9 @@ class WebRTC {
 
     // Callback register after complete
     this.onRTC = (func) =>
+
+    // Callback register when client disconnects
+    this.onEndCall = (func) =>
 
     // Holds peer video output
     this.peervideo;
@@ -81,7 +85,6 @@ class WebRTC {
 
   // 1. Get video from peer
   callEndpoint (peerendpointid) {
-    // Make a request to peer
     this.comms.send(this.app, 'CALL_REQUEST', peerendpointid, '');
   }
 
@@ -92,6 +95,8 @@ class WebRTC {
     } else {
       // Change call state to receiving
       this.state = 'RX';
+      // Save endoint
+      this.party = from;
       // Set up pc, (prepare own media stream) then send accept message
       this.createPeerConnection(from).then(() => {
         this.comms.send(this.app, 'CALL_ACCEPT', from, '');
@@ -108,6 +113,8 @@ class WebRTC {
   callAccepted (from) {
     // Change state to in call
     this.state = 'TX';
+    // Save endpoint & send a call request
+    this.party = from;
     // Create peer connection
     this.createPeerConnection(from).then(() => {
       // Make offers
@@ -129,7 +136,7 @@ class WebRTC {
         );
     });
   }
-  // 4. Save offer from other endpoint (moderators window)
+  // 4. Save offer from other endpoint after accepted
   receivedIncomingSDPoffer (from, data) {
     // When receiving a call
     if (this.state === 'RX') {
@@ -172,12 +179,22 @@ class WebRTC {
         );
     }
   }
-  endCall (from, params) {
-    // TODO: when a socket disconnects, method to remove remote peer connection
+  // Called by both caller and receiver
+  endCall () {
+    if ((this.state === 'RX' || this.state === 'TX') && this.pc != null) {
+      this.pc.close();
+      delete this.pc;
+      this.state = 'IDLE';
+      this.party = null;
+      // Call clients cb function (e.g delete a video element)
+      this.onEndCall();
+    }
   }
-
+  // Function called by client side handler
+  hangup () {
+    if ((this.state == 'RX' || this.state == 'TX') && this.pc != null) {
+      this.comms.send(this.app, 'END_CALL', this.party, '');
+      this.endCall();
+    }
+  }
 }
-
-const onCreateSessionDescriptionError = () => {
-  /* console.log(error.toString()); */
-};
