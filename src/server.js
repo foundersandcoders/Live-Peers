@@ -20,13 +20,16 @@ const options = {
   redirectTo: '/'
 };  // make this :)
 
-// Add certs for https
+/* CERTS REQUIRED FOR DEVELOPMENT
+(needs keys directory, with cert.pem, and key.pem)
+http://stackoverflow.com/questions/5998694/how-to-create-an-https-server-in-node-js
+*/
 const tls = {
   key: fs.readFileSync(path.join(__dirname, '../keys/key.pem')),
   cert: fs.readFileSync(path.join(__dirname, '../keys/cert.pem'))
 };
 
-// Set Connection
+// Set Connection (remove tls for production)
 server.connection({
   port: process.env.PORT || 8080,
   routes: {
