@@ -1,4 +1,3 @@
-// To start the server
 const server = require('./src/server.js');
 
 server.start((err) => {
