@@ -36,7 +36,6 @@ module.exports = (io) => {
       servercomms(io, ws, msg);
     });
     ws.on('disconnect', () => {
-      // dont send empty message
       servercomms(io, ws);
     });
   });
