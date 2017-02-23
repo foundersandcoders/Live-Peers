@@ -63,6 +63,7 @@ class WebRTC {
     };
     // Add Add stream listener (incoming stream), and append to placeholder video element
     this.pc.onaddstream = (e) => {
+      console.log('hello');
       this.peervideo.srcObject = e.stream;
       this.peervideo.play();
     };
