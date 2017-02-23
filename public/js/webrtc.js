@@ -1,9 +1,14 @@
 /* WebRTC Class (uses comms module) */
 
-/* Usage
-// 1. call new WebRTC(commsmodule)
-// 2. call addMyMediaStreamToVideo(videoDOMelement)
-// 3. call getPeersMediaStream(PeerEndpointID)
+/* Usage Example
+
+const mycomms = new Comms(roomname, endpointid)
+const webrtc =  new WebRTC(mycomms);
+      webrtc.addMyMediaStreamToVideo(ownvideoDOMelement)
+      webrtc.peervideo = (peervideoDOMelement)
+      webrtc.onRTC = () => {
+        ownvideoDOMelement.classList.add('make-small')
+      }
 */
 
 class WebRTC {
