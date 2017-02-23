@@ -4,6 +4,8 @@ const vision = require('vision');
 const inert = require('inert');
 const server = new Hapi.Server();
 const env = require('env2');
+const fs = require('fs');
+const path = require('path');
 
 // Install Environment Variables
 env('./config.env');
@@ -18,6 +20,12 @@ const options = {
   redirectTo: '/'
 };  // make this :)
 
+// Add certs for https
+const tls = {
+  key: fs.readFileSync(path.join(__dirname, '../keys/key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, '../keys/cert.pem'))
+};
+
 // Set Connection
 server.connection({
   port: process.env.PORT || 8080,
@@ -25,7 +33,8 @@ server.connection({
     files: {
       relativeTo: __dirname
     }
-  }
+  },
+  tls: tls
 });
 
 // Register Plugins
@@ -55,14 +64,7 @@ server.register([vision, inert, cookieAuth], (err) => {
       }
     }
   };
-  const joinRoute = {
-    method: 'GET',
-    path: '/',
-    handler: (req, reply) => {
-      reply.view('join.hbs');
-    }
-  };
-  server.route([fileRoute, joinRoute]);
+  server.route([fileRoute, require('./routes/home')]);
 });
 
 module.exports = server;

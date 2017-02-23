@@ -1,0 +1,41 @@
+<h1>ROOM: {{roomname}}</h1>
+<h2>ENDPOINT: {{endpointid}}</h2>
+<h3>TOTAL ENDPOINTS: </h3>
+<ul class="endpointlist"></ul>
+
+<h5>My Video: </h5>
+<video class="myvideo"></video>
+
+<h5>Their Video: </h5>
+<video class="peervideo"></video>
+
+<!-- SOCKET.IO SCRIPT -->
+<script src="js/adapter.js"></script>
+<script src="socket.io/socket.io.js"></script>
+<script src="js/comms.js"></script>
+<script src="js/webrtc.js"></script>
+<script type="text/javascript">
+
+  // Endpoints array
+  const endpoints = []
+  const endpointlist = document.querySelector('.endpointlist');
+
+  // Video Elts
+  const myvideo = document.querySelector('.myvideo');
+  const peervideo = document.querySelector('.peervideo');
+
+  const mycomms = new Comms("{{roomname}}", "{{endpointid}}")
+  const webrtc =  new WebRTC(mycomms);
+        webrtc.addMyMediaStreamToVideo(myvideo)
+        webrtc.peervideo = peervideo
+  // Register Callback
+  mycomms.registerHandler('CHATROOM', 'REGISTER', (from) =>{
+    endpointlist.innerHTML += `<li>${from}</li>`
+    endpoints.push(from)
+    if (endpoints.length == 2) {
+      webrtc.getPeersMediaStream(from);
+    }
+  })
+  // Register Endpoint First
+  mycomms.send('CHATROOM', 'REGISTER', '', '{{endpointid}}');
+</script>
