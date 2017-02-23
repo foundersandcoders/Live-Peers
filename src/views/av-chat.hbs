@@ -1,10 +1,9 @@
-
-
 <!-- Holds own video, and peer video -->
 <div class="full-page-container">
   <div class="videocontainer">
     <video class="myvideo video"></video>
     <video class="peervideo video"></video>
+    <button class="hangupbutton">Hangup</button>
   </div>
 </div>
 
@@ -25,6 +24,9 @@
   const myvideo = document.querySelector('.myvideo');
   const peervideo = document.querySelector('.peervideo');
 
+  // Hangup button
+  const hangupbutton = document.querySelector('.hangupbutton');
+
   const mycomms = new Comms("{{roomname}}", "{{endpointid}}")
   const webrtc =  new WebRTC(mycomms);
         webrtc.addMyMediaStreamToVideo(myvideo)
@@ -32,11 +34,20 @@
         webrtc.onRTC = () => {
           myvideo.classList.add('roundify')
         }
+        webrtc.onEndCall = () => {
+          myvideo.classList.remove('roundify')
+        }
+
+  // Hangup button
+  hangupbutton.addEventListener('click', ()=>{
+        webrtc.hangup();
+  })
   // Register Callback
   mycomms.registerHandler('CHATROOM', 'REGISTER', (from) =>{
     // If new endpoint in room, call them
     if (endpointid !== from) webrtc.callEndpoint(from);
   })
+
   // Register Endpoint First
   mycomms.send('CHATROOM', 'REGISTER', '', '{{endpointid}}');
 </script>
