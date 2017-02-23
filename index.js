@@ -1,5 +1,6 @@
-// To start the server
+const server = require('./src/server.js');
 
-const hello = "yes";
-
-const you = (ha) => ha * 2;
+server.start((err) => {
+  if (err) { throw err; }
+  console.log(`Server is running at ${server.info.uri}`);
+});
