@@ -1,9 +1,17 @@
+/* WebRTC Class (uses comms module) */
+
+/* Usage
+// 1. call new WebRTC(commsmodule)
+// 2. call addMyMediaStreamToVideo(videoDOMelement)
+// 3. call getPeersMediaStream(PeerEndpointID)
+*/
+
 class WebRTC {
   // Takes comms object initially
   constructor (comms) {
     this.comms = comms;
     this.app = 'WEBRTC';
-    this._state = 'IDLE';
+    this.state = 'IDLE';
     // Register Handlers
     this.comms.registerHandler(this.app, 'CALL_REQUEST', this.requestIncomingCall.bind(this));
     this.comms.registerHandler(this.app, 'DENIED', this.callDenied.bind(this));
@@ -15,25 +23,22 @@ class WebRTC {
     this.comms.registerHandler(this.app, 'CANDIDATE', this.receivedCandidate.bind(this));
     this.comms.registerHandler(this.app, 'END_CALL', this.endCall.bind(this));
 
-    // For peer video output
+    // Holds peer video output
     this.peervideo;
   }
-  // Gets owner media stream (returns a Promise)
+  // Gets owner media stream (returns a promise)
   getMediaStream () {
-    // change audio to TRUE for production
     if (this.localMediaPromise == null) {
       this.localMediaPromise = navigator.mediaDevices.getUserMedia(
-        {video: {width: 300, height: 160}, audio: false});
+        {video: true, audio: true});
     }
     return this.localMediaPromise;
   }
 
-  // (For Mentor) Takes DOM video element and add's media stream
+  // Takes DOM video element and adds media stream
   addMyMediaStreamToVideo (video) {
     return this.getMediaStream()
       .then((mediaStream) => {
-        // // Add to PC
-
         // Attach this stream to a video element...
         video.srcObject = mediaStream;
         // When meta data loaded, play
@@ -44,9 +49,8 @@ class WebRTC {
       });
   }
 
-  // Creates Peer Connection instance
+  // Creates Peer Connection
   createPeerConnection (from) {
-    // Define initial peer connection object
     this.pc = new RTCPeerConnection();
     // Add Ice Candidate Listener
     this.pc.onicecandidate = (e) => {
@@ -61,27 +65,25 @@ class WebRTC {
     };
     // Add stream for own stream
     var prom = this.getMediaStream();
-
     prom.then((stream) => this.pc.addStream(stream));
-
-    // Return PC
+    // Return PC promise
     return prom;
   }
 
-  // 1. Get video from peer (called by client)
+  // 1. Get video from peer
   getPeersMediaStream (peerendpointid) {
     // Make a request to peer
     this.comms.send(this.app, 'CALL_REQUEST', peerendpointid, '');
   }
 
+  // 2. Only accept a call if we're currently idle
   requestIncomingCall (from) {
-  // 2. Only accept a call if we're currently idle (moderator)
-    if (this._state !== 'IDLE') {
+    if (this.state !== 'IDLE') {
       this.comms.send(this.app, 'DENIED', from, '');
     } else {
-      // Change state to receiving call
-      this._state = 'RX';
-      // Set up peer connection
+      // Change call state to receiving
+      this.state = 'RX';
+      // Set up pc, (prepare own media stream) then send accept message
       this.createPeerConnection(from).then(() => {
         this.comms.send(this.app, 'CALL_ACCEPT', from, '');
       });
@@ -93,13 +95,13 @@ class WebRTC {
     alert("Can't call " + from + ', the line is busy...');
   }
 
-  // 3. Mentor
+  // 3. Caller is notified the receiver has accepted the call
   callAccepted (from) {
     // Change state to in call
-    this._state = 'TX';
-    // Make this.pc available
+    this.state = 'TX';
+    // Create peer connection
     this.createPeerConnection(from).then(() => {
-      // Make offers ONLY if own media stream is active
+      // Make offers
       const offerOptions = {
         offerToReceiveAudio: 0,
         offerToReceiveVideo: 1
@@ -113,7 +115,7 @@ class WebRTC {
             // Send the offer
             this.comms.send(this.app, 'OFFER', from, offer);
           },
-            // Reject handler
+            // ... or reject handler
             onCreateSessionDescriptionError
         );
     });
@@ -121,7 +123,7 @@ class WebRTC {
   // 4. Save offer from other endpoint (moderators window)
   receivedIncomingSDPoffer (from, data) {
     // When receiving a call
-    if (this._state === 'RX') {
+    if (this.state === 'RX') {
       this.pc.setRemoteDescription(data).then(
         () => console.log('setRemoteDescription COMPLETE'),
         () => console.log('setRemoteDescription FAILED')
@@ -139,11 +141,10 @@ class WebRTC {
       );
     }
   }
-  // 5. Received answer
+  // 5. Received answer, set remotes answer
   receivedIncomingSDPanswer (from, data) {
-    console.log('receivedIncomingSDPanswer');
     // When receiving a call
-    if (this._state === 'TX') {
+    if (this.state === 'TX') {
       this.pc.setRemoteDescription(data).then(
         () => console.log('setRemoteDescription COMPLETE'),
         () => console.log('setRemoteDescription FAILED')
@@ -151,9 +152,9 @@ class WebRTC {
     }
   }
 
+  // 6. Called from pc listeners
   receivedCandidate (from, data) {
-    console.log('receivedCandidate');
-    if (this._state !== 'IDLE') {
+    if (this.state !== 'IDLE') {
       const candidate = new RTCIceCandidate(data);
       this.pc.addIceCandidate(candidate)
         .then(() => {
@@ -166,7 +167,7 @@ class WebRTC {
     }
   }
   endCall (from, params) {
-    // Need server to send message on disconnect
+    // TODO: when a socket disconnects, method to remove remote peer connection
   }
 
 }
@@ -174,15 +175,3 @@ class WebRTC {
 const onCreateSessionDescriptionError = (error) => {
   console.log(error.toString());
 };
-
-/* Usage */
-
-// Mentor
-
-// const rtc = new WebRTC(roomid, endpointid)
-// rtc.addMyMediaStreamToVideo(document.querySelector(".videoelt"))
-
-// Student
-
-// const rtc = new WebRTC(roomid, endpointid)
-// rtc.addMyMediaStreamToVideo(document.querySelector(".videoelt"))
