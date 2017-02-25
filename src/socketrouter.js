@@ -2,41 +2,42 @@
 const room = require('../myroom.js');
 const roomname = Object.keys(room).toString();
 
-const servercomms = (io, ws, msg) => {
-  // TEMP. Return if no msg (disconnected socket)
-  if (!msg) return;
-  // Parse message
-  const parsed = JSON.parse(msg);
-  // Extract data
-  const to = parsed.to;
-  const app = parsed.app;
-  const params = parsed.params;
+const Comms = require('./socketcomms');
+const Signaller = require('./socketsignaller');
 
-  const route = `${app}`;
-
-  switch (route) {
-    // Chatroom example...
-    case ('CHATROOM') : {
-      // add endpoint Object, with socketid and permissions
-      room[roomname][params].socketid = ws.id;
-      io.emit('message', msg);
-      break;
-    }
-    case ('WEBRTC') : {
-      const wsid = room[roomname][to].socketid;
-      ws.broadcast.to(wsid).emit('message', msg);
+// On disconnect, find the endpoint from socket id
+const findEndpointFromID = (socketid) => {
+  for (let endpoint in room[roomname].endpoints) {
+    if (room[roomname].endpoints[endpoint].socketid === socketid) {
+      return endpoint;
     }
   }
 };
 
-// Main router
 module.exports = (io) => {
-  io.on('connection', (ws) => {
-    ws.on('message', (msg) => {
-      servercomms(io, ws, msg);
-    });
-    ws.on('disconnect', () => {
-      servercomms(io, ws);
-    });
+  // For all incoming, new, and disconnected sockets
+  const ChatRoomRouter = new Comms(Signaller(io));
+  ChatRoomRouter.registerOnMessageHandler((msg, socketid) => {
+    // Parse message
+    const parsed = JSON.parse(msg);
+    const to = parsed.to;
+    const app = parsed.app;
+    const method = parsed.method;
+    const params = parsed.params;
+    // For private messages in WebRTC
+    if (app === 'WEBRTC') {
+      const socketid = room[roomname].endpoints[to].socketid;
+      ChatRoomRouter.privateMessage(socketid, msg);
+    // For registering
+    } else if (method === 'REGISTER') {
+      room[roomname].endpoints[params] = {};
+      room[roomname].endpoints[params].socketid = socketid;
+      ChatRoomRouter.globalMessage(msg);
+    }
+  });
+  ChatRoomRouter.registerOnDisconnectHandler((socketid) => {
+    // Remove socket id on disconnect
+    const endpoint = findEndpointFromID(socketid);
+    room[roomname].endpoints[endpoint].socketid = '';
   });
 };
