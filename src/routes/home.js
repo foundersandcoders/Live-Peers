@@ -16,7 +16,7 @@ module.exports = {
     // Add roomid
     const roomname = Object.keys(myroom).toString();
     // Add new endpoint to room
-    myroom[roomname][endpointid] = {
+    myroom[roomname].endpoints[endpointid] = {
       socketid: '',
       permissions: 'av'
     };

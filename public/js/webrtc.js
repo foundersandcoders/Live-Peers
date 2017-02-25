@@ -132,7 +132,7 @@ class WebRTC {
             this.comms.send(this.app, 'OFFER', from, offer);
           },
             // ... or reject handler
-            onCreateSessionDescriptionError
+          (err) => console.log(err)
         );
     });
   }
@@ -153,7 +153,7 @@ class WebRTC {
           // And send this to desciption to the remote end
           this.comms.send(this.app, 'ANSWER', from, desc);
         },
-        onCreateSessionDescriptionError
+        (err) => console.log(err)
       );
     }
   }
