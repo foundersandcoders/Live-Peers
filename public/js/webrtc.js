@@ -28,6 +28,7 @@ class WebRTC {
     this.comms.registerHandler(this.app, 'SDP_ANSWER', this.receivedIncomingSDPanswer.bind(this));
     this.comms.registerHandler(this.app, 'CANDIDATE', this.receivedCandidate.bind(this));
     this.comms.registerHandler(this.app, 'END_CALL', this.endCall.bind(this));
+    this.comms.registerHandler(this.app, 'DISCONNECT', this.endCall.bind(this));
 
     // Callback register after complete
     this.onRTC = (func) =>
@@ -179,9 +180,9 @@ class WebRTC {
         );
     }
   }
-  // Called by both caller and receiver
-  endCall () {
-    if ((this.state === 'RX' || this.state === 'TX') && this.pc != null) {
+  // Called by both caller and receiver (and on disconnect)
+  endCall (from) {
+    if ((this.state === 'RX' || this.state === 'TX') && this.pc != null && this.party === from) {
       this.pc.close();
       delete this.pc;
       this.state = 'IDLE';
