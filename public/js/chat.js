@@ -8,7 +8,7 @@ class Chat {
     this.input = input;
     this.output = output;
     this.form = form;
-    this.app = 'CHATROOM';
+    this.app = 'CHAT';
     this.sys = 'SYSTEM';
 
     comms.send(this.app, 'REGISTER', this.sys, 'JOINED');
