@@ -40,9 +40,20 @@ server.register([Vision, Inert, CookieAuth], (err) => {
     isHttpOnly: false,
     redirectTo: '/'
   };
+
+  // Required for static files
+  const fileRoute = {
+    method: 'GET',
+    path: '/{path*}',
+    handler: {
+      directory: {
+        path: '../public'
+      }
+    }
+  };
   server.auth.strategy('session', 'cookie', options);
 
-  server.route(routes);
+  server.route([fileRoute, ...routes]);
 });
 
 module.exports = server;
