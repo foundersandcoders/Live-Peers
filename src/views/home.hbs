@@ -1,14 +1,11 @@
-<!-- Nav -->
-{{!-- {{> nav}} --}}
-
+<!-- Header -->
 <header class="header">
-  <!-- E.G. 'my webrtc workshop LIVE AT [www.livepeers.com?sessionid=EFGHI] CODE 6789' -->
+  <!-- Logo -->
   <img class="header__logo" src="images/logo.png"/>
+  <!-- Info -->
   <div class="header__info">
     <span class="header__info-text">Session Info</span>
     <i class="material-icons header__info-icon">keyboard_arrow_down</i>
-    <!-- Nested Info Container -->
-
   </div>
   <!-- Popout -->
   <div class="header__popout" style="display: none;">
@@ -17,13 +14,24 @@
     <h3 class="header__popout-text">Session Pin</h3>
     <p class="header__popout-text-box">{{pin}}</p>
   </div>
+  <!-- Room Title -->
+  <div class="header__room-title">
+    <h2 class="header__room-title-text">{{roomName}}</h2>
+    <i class="material-icons header__room-title-icon">mode_edit</i>
+  </div>
+
+  {{!-- <!-- Spacemaker Flexbox Hack-->
+  <span></span>
+  <span></span> --}}
+
+  <h3 class="header__username">{{username}}</h3>
+
     {{!-- <li><h1>Room Name: {{roomName}}</h1></li>
     <li><h1>Username:  {{username}}</h1></li>
     <li>LIVE AT <code>https://livepeers.com?roomid={{roomId}}</code></li>
     {{#if pin}}
       <li>PIN <code>{{pin}}</code></li>
     {{/if}} --}}
-  <img class="header__logo" src="images/logo.png"/>
 </header>
 
 {{!-- <section>

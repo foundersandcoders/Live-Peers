@@ -48,7 +48,30 @@ body {
   opacity: 0.5;
 }
 
-/* Pop-out */
+/* Room Title & icon */
+.header__room-title {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__room-title-text {
+  border-bottom: 1px solid #424242;
+  font-weight: 400;
+  font-size: 1.8em;
+  color: #9E9E9E;
+}
+
+.header__room-title-icon {
+  border: 1px solid #FBFBFB;
+  font-size: .85em;
+  padding: .4em;
+  border-radius: 50%;
+  margin-left: .3em;
+}
+
+/* Pop-out (session ID, Pin)*/
 .header__popout {
   display: inline-block;
   width: 20em;
@@ -57,7 +80,7 @@ body {
   border-radius: .5em;
   background-color: #FBFBFB;
   position: absolute;
-  top: 4em;
+  top: 5em;
   left: 25%;
   cursor: default;
 }
@@ -76,4 +99,14 @@ body {
   font-weight: 300;
   background-color: white;
   cursor: text;
+}
+
+/* Username */
+
+.header__username {
+  color: black;
+  font-size: 1.3em;
+  font-weight: 400;
+  width: 35%;
+  text-align: right;
 }
