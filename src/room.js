@@ -14,7 +14,7 @@ class Room {
     this.endpoints[endpointId]['permissions'] = permissions;
   }
   updateCommsId (endpointId, commsId) {
-    this.endpoints['endpointId'] = commsId;
+    this.endpoints['endpointId']['commsId'] = commsId;
   }
   removeEndpoint (endpointId) {
     delete this.endpoints[endpointId];
