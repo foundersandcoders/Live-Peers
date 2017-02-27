@@ -28,7 +28,6 @@ class WebRTC {
     this.comms.registerHandler(this.app, 'SDP_ANSWER', this.receivedIncomingSDPanswer.bind(this));
     this.comms.registerHandler(this.app, 'CANDIDATE', this.receivedCandidate.bind(this));
     this.comms.registerHandler(this.app, 'END_CALL', this.endCall.bind(this));
-    this.comms.registerHandler(this.app, 'DISCONNECT', this.endCall.bind(this));
 
     // Callback register after complete
     this.onRTC = (func) =>
@@ -63,12 +62,12 @@ class WebRTC {
   }
 
   // Creates Peer Connection
-  createPeerConnection (from) {
+  createPeerConnection (sender) {
     this.pc = new RTCPeerConnection();
     // Add Ice Candidate Listener
     this.pc.onicecandidate = (e) => {
       if (e.candidate != null) {
-        this.comms.send(this.app, 'CANDIDATE', from, e.candidate);
+        this.comms.send(this.app, 'CANDIDATE', sender, e.candidate);
       }
     };
     // Add Add stream listener (incoming stream), and append to placeholder video element
@@ -84,61 +83,61 @@ class WebRTC {
     return prom;
   }
 
-  // 1. Get video from peer
+  // 1. Get video of peer
   callEndpoint (peerendpointid) {
     this.comms.send(this.app, 'CALL_REQUEST', peerendpointid, '');
   }
 
   // 2. Only accept a call if we're currently idle
-  requestIncomingCall (from) {
+  requestIncomingCall (sender) {
     if (this.state !== 'IDLE') {
-      this.comms.send(this.app, 'DENIED', from, '');
+      this.comms.send(this.app, 'DENIED', sender, '');
     } else {
       // Change call state to receiving
       this.state = 'RX';
       // Save endoint
-      this.party = from;
+      this.party = sender;
       // Set up pc, (prepare own media stream) then send accept message
-      this.createPeerConnection(from).then(() => {
-        this.comms.send(this.app, 'CALL_ACCEPT', from, '');
+      this.createPeerConnection(sender).then(() => {
+        this.comms.send(this.app, 'CALL_ACCEPT', sender, '');
       });
       // Send accept message
     }
   }
   // Alert to say recipient is busy
-  callDenied (from) {
-    alert("Can't call " + from + ', the line is busy...');
+  callDenied (sender) {
+    alert("Can't call " + sender + ', the line is busy...');
   }
 
   // 3. Caller is notified the receiver has accepted the call
-  callAccepted (from) {
+  callAccepted (sender) {
     // Change state to in call
     this.state = 'TX';
     // Save endpoint & send a call request
-    this.party = from;
+    this.party = sender;
     // Create peer connection
-    this.createPeerConnection(from).then(() => {
+    this.createPeerConnection(sender).then(() => {
       // Make offers
       const offerOptions = {
         offerToReceiveAudio: 0,
         offerToReceiveVideo: 1
       };
-      // then create offer from new PC
+      // then create offer of new PC
       this.pc.createOffer(
             offerOptions
           ).then((offer) => {
             // Save the offer description
             this.pc.setLocalDescription(offer);
             // Send the offer
-            this.comms.send(this.app, 'OFFER', from, offer);
+            this.comms.send(this.app, 'OFFER', sender, offer);
           },
             // ... or reject handler
           (err) => console.log(err)
         );
     });
   }
-  // 4. Save offer from other endpoint after accepted
-  receivedIncomingSDPoffer (from, data) {
+  // 4. Save offer of other endpoint after accepted
+  receivedIncomingSDPoffer (sender, data) {
     // When receiving a call
     if (this.state === 'RX') {
       this.pc.setRemoteDescription(data).then(
@@ -152,14 +151,14 @@ class WebRTC {
           // Save local answer
           this.pc.setLocalDescription(desc);
           // And send this to desciption to the remote end
-          this.comms.send(this.app, 'ANSWER', from, desc);
+          this.comms.send(this.app, 'ANSWER', sender, desc);
         },
         (err) => console.log(err)
       );
     }
   }
   // 5. Received answer, set remotes answer
-  receivedIncomingSDPanswer (from, data) {
+  receivedIncomingSDPanswer (sender, data) {
     // When receiving a call
     if (this.state === 'TX') {
       this.pc.setRemoteDescription(data).then(
@@ -169,8 +168,8 @@ class WebRTC {
     }
   }
 
-  // 6. Called from pc listeners
-  receivedCandidate (from, data) {
+  // 6. Called via pc listeners
+  receivedCandidate (sender, data) {
     if (this.state !== 'IDLE') {
       const candidate = new RTCIceCandidate(data);
       this.pc.addIceCandidate(candidate)
@@ -180,9 +179,9 @@ class WebRTC {
         );
     }
   }
-  // Called by both caller and receiver (and on disconnect)
-  endCall (from) {
-    if ((this.state === 'RX' || this.state === 'TX') && this.pc != null && this.party === from) {
+  // Called by both caller and receiver
+  endCall () {
+    if ((this.state === 'RX' || this.state === 'TX') && this.pc != null) {
       this.pc.close();
       delete this.pc;
       this.state = 'IDLE';
