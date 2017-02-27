@@ -1,0 +1,79 @@
+/* Defaults */
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+/*** Header ***/
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1em;
+  border: 1px solid blue;
+  padding: 1em;
+  color: #757575;
+  position: relative;
+
+}
+
+/* Logo */
+.header__logo {
+  width: auto;
+  height: 3.5em;
+}
+
+/* 'Session Info' text */
+.header__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.header__info:hover .header__info-text,
+.header__info:hover .header__info-icon {
+  opacity: 0.5;
+}
+
+/* Pop-out */
+.header__popout {
+  display: inline-block;
+  width: 20em;
+  padding: 1em;
+  border: 1px solid #424242;
+  border-radius: .5em;
+  background-color: #FBFBFB;
+  position: absolute;
+  top: 4em;
+  left: 25%;
+  cursor: default;
+}
+
+.header__popout-text {
+  margin: 0;
+  padding: 0;
+  line-height: 1em;
+  font-weight: 300;
+}
+
+.header__popout-text-box {
+  font-size: .8em;
+  border: 1px solid #E0E0E0;
+  padding: 0.3em;
+  font-weight: 300;
+  background-color: white;
+  cursor: text;
+}

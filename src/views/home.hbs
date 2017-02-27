@@ -1,17 +1,29 @@
 <!-- Nav -->
 {{!-- {{> nav}} --}}
 
-<header>
+<header class="header">
   <!-- E.G. 'my webrtc workshop LIVE AT [www.livepeers.com?sessionid=EFGHI] CODE 6789' -->
-  <ul>
-    <li><img src="images/logo.png"/></li>
+  <img class="header__logo" src="images/logo.png"/>
+  <div class="header__info">
+    <span class="header__info-text">Session Info</span>
+    <i class="material-icons header__info-icon">keyboard_arrow_down</i>
+    <!-- Nested Info Container -->
+
+  </div>
+
+  <div class="header__popout" style="display: none;">
+    <h3 class="header__popout-text">Live at</h3>
+    <p class="header__popout-text-box">https://livepeers.com?roomid={{roomId}}</p>
+    <h3 class="header__popout-text">Session Pin</h3>
+    <p class="header__popout-text-box">{{pin}}</p>
+  </div>
     {{!-- <li><h1>Room Name: {{roomName}}</h1></li>
     <li><h1>Username:  {{username}}</h1></li>
     <li>LIVE AT <code>https://livepeers.com?roomid={{roomId}}</code></li>
     {{#if pin}}
       <li>PIN <code>{{pin}}</code></li>
     {{/if}} --}}
-  </ul>
+  <img class="header__logo" src="images/logo.png"/>
 </header>
 
 {{!-- <section>
@@ -33,3 +45,15 @@
     End Session
   </a>
 </section> --}}
+
+<!-- DOM manipulations -->
+<script type="text/javascript">
+document.querySelector('.header__info').addEventListener('click', () =>{
+  const popout = document.querySelector('.header__popout');
+  if (popout.style.display === 'none') {
+    popout.style = ''
+  } else {
+    popout.style.display = 'none'
+  }
+})
+</script>
