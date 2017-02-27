@@ -15,7 +15,7 @@ class WebRTC {
   // Takes comms object initially
   constructor (comms) {
     this.comms = comms;
-    this.app = 'WEBRTC';
+    this.app = 'AV';
     this.sys = 'SYSTEM'
     this.state = 'IDLE';
     this.party;
