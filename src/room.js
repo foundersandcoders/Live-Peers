@@ -11,7 +11,7 @@ class Room {
       commsId: ''
     };
   }
-  updateUsernameame (endpointId, username) {
+  updateUsername (endpointId, username) {
     this.endpoints[endpointId].username = username;
   }
   updatePermissions (endpointId, permissions) {
