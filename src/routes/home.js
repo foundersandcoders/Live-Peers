@@ -1,4 +1,5 @@
-const { getRoomData, getUserData } = require('./handlers/roomQueries');
+const Rooms = require('../../rooms.js');
+const Room = require('../../room.js');
 
 module.exports = {
   method: 'GET',
@@ -10,8 +11,8 @@ module.exports = {
         if (req.auth.isAuthenticated) {
           let roomId = req.auth.credentials.roomId;
           let endpointId = req.auth.credentials.endpointId;
-          let roomData = getUserData(roomId, endpointId);
-          reply.view('main', roomData);
+          let userData = getUserData(roomId, endpointId);
+          reply.view('main', userData);
         }
         else {
           reply.view('join', { errorMessage: "Incorrect credentials" });
@@ -19,7 +20,7 @@ module.exports = {
       }
       else {
         let roomId = req.query.roomId;
-        let roomData = getRoomData(roomId);
+        let roomData = Rooms[roomId].getroomName();
         reply.view('join', roomData);
       }
     }
@@ -36,4 +37,15 @@ module.exports = {
       }
     }
   }
+};
+
+const getUserData = (room, endpoint) => {
+  let roomId = Rooms[room];
+  let endpointId = Rooms[room][endpoint];
+
+  let roomName = roomId.getroomName();
+  let username = roomId.endpoints[endpointId].getUsername();
+  let permissions = roomId.endpoints[endpointId].getPermissions();
+
+  return { roomId, roomName, endpointId, username, permissions };
 };
