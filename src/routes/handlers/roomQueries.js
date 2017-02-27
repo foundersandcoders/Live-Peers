@@ -1,13 +1,11 @@
 const Rooms = require('../../rooms.js');
 
 const getRoomData = (room) => {
-  console.log('here?');
   if (Rooms[room]) {
     let roomData = {
       roomId: room,
       roomName: Rooms[room].roomName
     };
-    console.log('return from getRoomData', roomData);
     return roomData;
   }
   else {

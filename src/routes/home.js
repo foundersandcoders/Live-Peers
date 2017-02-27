@@ -6,7 +6,6 @@ module.exports = {
   handler: (req, reply) => {
     // Student branch
     if (req.query.roomId) {
-      console.log(req.query.roomId);
       if (req.auth.credentials) {
         if (req.auth.isAuthenticated) {
           let roomId = req.auth.credentials.roomId;
