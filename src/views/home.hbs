@@ -10,7 +10,7 @@
     <!-- Nested Info Container -->
 
   </div>
-
+  <!-- Popout -->
   <div class="header__popout" style="display: none;">
     <h3 class="header__popout-text">Live at</h3>
     <p class="header__popout-text-box">https://livepeers.com?roomid={{roomId}}</p>
@@ -48,12 +48,15 @@
 
 <!-- DOM manipulations -->
 <script type="text/javascript">
-document.querySelector('.header__info').addEventListener('click', () =>{
-  const popout = document.querySelector('.header__popout');
-  if (popout.style.display === 'none') {
-    popout.style = ''
-  } else {
-    popout.style.display = 'none'
-  }
-})
+(function(){
+  document.querySelector('.header__info').addEventListener('click', () =>{
+    const popout = document.querySelector('.header__popout');
+    if (popout.style.display === 'none') {
+      popout.style = ''
+    } else {
+      popout.style.display = 'none'
+    }
+  })
+})();
+
 </script>
