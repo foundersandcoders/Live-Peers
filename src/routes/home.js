@@ -1,3 +1,5 @@
+// // Main route here is commented out for testing purposes
+//
 // const { getRoomData, getUserData } = require('./handlers/roomQueries');
 //
 // module.exports = {
@@ -37,6 +39,8 @@
 //     }
 //   }
 // };
+
+// Test route to inject data into home view
 
 module.exports = {
   method: 'GET',
