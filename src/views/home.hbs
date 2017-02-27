@@ -27,9 +27,18 @@
 <!-- Main App -->
 <section class="main">
   <nav class="nav">
-    <i class="material-icons nav__icon nav__chat">chat_bubble</i>
-    <i class="material-icons nav__icon nav__video">videocam</i>
-    <i class="nav__icon nav__code">&lt;\&gt;</i>
+    <!-- Chat Bubble -->
+    <div class="selected nav__link nav__chat">
+      <i class="material-icons nav__chat-icon">chat_bubble</i>
+    </div>
+    <!-- Video Cam -->
+    <div class="nav__link nav__av">
+      <i class="material-icons nav__av-icon">videocam</i>
+    </div>
+    <!-- Code -->
+    <div class="nav__link nav__code">
+      <i class="nav__icon nav__code-icon">&lt;\&gt;</i>
+    </div>
   </nav>
   <div class="apps">
     <div class="apps__av">
@@ -38,7 +47,7 @@
       <!--{{> av pin=pin}} -->
     </div>
 
-    <div class="apps__chat">
+    <div class="selected apps__chat">
       <h3>(chat container goes here)</h3>
       <!-- Chat goes here -->
       <!--{{> chat}} -->
@@ -47,24 +56,36 @@
 </section>
 
 
-<!--
-container (flex) two items
-  side-nav (thin bar)
-  app container relative
-    videoelt (absolute)
-    chatpartial (on chat click is 100% width, but usually right 0, 35%)
--->
-
 <!-- DOM manipulations -->
 <script type="text/javascript">
 (function(){
-  document.querySelector('.header__info').addEventListener('click', () =>{
-    const popout = document.querySelector('.header__popout');
+  // Elts
+  const infoText = document.querySelector('.header__info');
+  const popout = document.querySelector('.header__popout');
+  const chatBubble = document.querySelector('.nav__chat');
+  const videoIcon = document.querySelector('.nav__av');
+  const chatWindow = document.querySelector('.apps__chat');
+
+  // Toggle extra info
+  infoText.addEventListener('click', () =>{
     if (popout.style.display === 'none') {
       popout.style = ''
     } else {
       popout.style.display = 'none'
     }
+  })
+
+  // When ChatBubble is clicked
+  chatBubble.addEventListener('click', (e) => {
+    chatBubble.classList.add('selected');
+    videoIcon.classList.remove('selected');
+    chatWindow.classList.add('selected');
+  })
+  // When VideoIcon is clicked
+  videoIcon.addEventListener('click', (e) => {
+    videoIcon.classList.add('selected');
+    chatBubble.classList.remove('selected');
+    chatWindow.classList.remove('selected');
   })
 })();
 

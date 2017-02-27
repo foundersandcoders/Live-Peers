@@ -131,21 +131,34 @@ body {
   background-color: #E0E0E0;
   flex-direction: column;
   align-items: center;
+  font-size: 1.2em;
   width: 5em;
+}
+/** Nav link (icon container) **/
+
+.nav__link {
+  width: 100%;
+  padding: 2em 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all .1s ease;
 }
 
 /* Icon */
-.nav__icon {
+.nav__chat-icon,
+.nav__av-icon {
   font-size: 2em;
-  margin: 1em;
   color: #9E9E9E;
-  cursor: pointer;
-  transition: all .3s ease;
 }
 
-.nav__video {
+
+.nav__av-icon {
   font-size: 2.5em;
 }
+
+
 
 /*** APPS ***/
 .apps {
@@ -176,4 +189,18 @@ body {
   height: 100%;
   background-color: #B3E5FC;
   z-index: 4;
+  transition: all .3s ease;
+}
+
+
+/* Nav Click Changes */
+
+.selected.nav__av,
+.selected.nav__chat  {
+  border-left: 4px solid #81D4FA;
+  background-color: #EEEEEE;
+}
+
+.selected.apps__chat {
+  width: 100%;
 }
