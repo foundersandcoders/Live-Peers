@@ -16,6 +16,7 @@ class WebRTC {
   constructor (comms) {
     this.comms = comms;
     this.app = 'WEBRTC';
+    this.sys = 'SYSTEM'
     this.state = 'IDLE';
     this.party;
     // Register Handlers
@@ -28,7 +29,7 @@ class WebRTC {
     this.comms.registerHandler(this.app, 'SDP_ANSWER', this.receivedIncomingSDPanswer.bind(this));
     this.comms.registerHandler(this.app, 'CANDIDATE', this.receivedCandidate.bind(this));
     this.comms.registerHandler(this.app, 'END_CALL', this.endCall.bind(this));
-    this.comms.registerHandler('SYSTEM', 'DISCONNECT', this.disconnect.bind(this));
+    this.comms.registerHandler(this.app, 'DISCONNECT', this.disconnect.bind(this));
 
     // Callback register after complete
     this.onRTC = (func) =>
@@ -199,8 +200,8 @@ class WebRTC {
     }
   }
   // Function called by client side handler
-  disconnect (sender) {
-    if (sender === this.party) {
+  disconnect (sender, data) {
+    if (data === this.party) {
       this.endCall();
     }
   }
