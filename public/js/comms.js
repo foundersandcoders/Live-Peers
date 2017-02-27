@@ -13,7 +13,7 @@ class Comms {
     this.ws.on('message', function (msg) {
       msg = JSON.parse(msg);
       // Simply calls the handler with 'from' and 'params' (not self)
-      self.handlers[msg.app + '.' + msg.method](msg.from, msg.params);
+      self.handlers[msg.app + '.' + msg.method](msg.receiver, msg.params);
     });
 
     Comms.endpoints[this.endpointid] = this;
@@ -29,11 +29,11 @@ class Comms {
   }
 
   // Send Method
-  send (app, method, to, params) {
+  send (app, method, receiver, params) {
     this.ws.emit('message', JSON.stringify({
       roomId: this.roomId,
-      from: this.endpointid,
-      to: to,
+      sender: this.endpointid,
+      receiver: receiver,
       app: app,
       method: method,
       params: params
