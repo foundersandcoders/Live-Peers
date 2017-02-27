@@ -6,13 +6,13 @@ class Room {
   }
   addEndpoint (endpointId) {
     this.endpoints[endpointId] = {
-      name: '',
+      username: '',
       permissions: 'CHAT',
       commsId: ''
     };
   }
-  updateUsernameame (endpointId, Name) {
-    this.endpoints[endpointId].name = Name;
+  updateUsernameame (endpointId, username) {
+    this.endpoints[endpointId].username = username;
   }
   updatePermissions (endpointId, permissions) {
     this.endpoints[endpointId].permissions = permissions;

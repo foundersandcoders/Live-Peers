@@ -1,4 +1,4 @@
-const appendP = (output, comms, from, message) => {
+const appendP = (output, from, message) => {
   output.appendChild(elt('p', from + ' : ' + message));
 };
 
