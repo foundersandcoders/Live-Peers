@@ -13,7 +13,7 @@ class Comms {
     this.ws.on('message', function (msg) {
       msg = JSON.parse(msg);
       // Simply calls the handler with 'from' and 'params' (not self)
-      self.handlers[msg.app + '.' + msg.method](msg.receiver, msg.params);
+      self.handlers[msg.app + '.' + msg.method](msg.sender, msg.params);
     });
 
     Comms.endpoints[this.endpointid] = this;
