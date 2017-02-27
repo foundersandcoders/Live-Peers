@@ -33,5 +33,8 @@ class Room {
       }
     }
   }
+  getCommsId (endpointId) {
+    return this.endpoints[endpointId].commsId;
+  }
 }
 module.exports = Room;
