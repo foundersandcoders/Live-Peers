@@ -30,7 +30,7 @@ module.exports = (io) => {
     const method = parsed.method;
     // For private messages in WebRTC
     switch (app) {
-    case ('CHATROOM') : {
+    case ('CHAT') : {
       if (method === 'REGISTER') {
           // Add Comms ID
         Rooms[roomId].updateCommsId(sender, commsid);
@@ -41,7 +41,7 @@ module.exports = (io) => {
           roomId: roomId,
           sender: sender,
           receiver: '',
-          app: 'CHATROOM',
+          app: 'CHAT',
           method: 'REGISTER',
           params: Rooms[roomId].getActiveUsers()
         }));
@@ -51,7 +51,7 @@ module.exports = (io) => {
       }
       break;
     }
-    case ('WEBRTC') : {
+    case ('AV') : {
         // Get receivers comms ID
       const receiverCommsId = Rooms[roomId].getCommsID(receiver);
         // If sender has permissions, then send the message to the receiver
@@ -77,16 +77,26 @@ module.exports = (io) => {
     const disconnected = locateEndpointIdFromCommsId(Rooms, commsid);
     // Remove the comms id associated to the socket
     Rooms[disconnected.room].removeCommsId(disconnected.endpointid);
-    // Send global message on disconnect
-    // Each client module can handle the SYSTEM DISCONNECT method accordingly
-    // params is an array of active users in the room
+    // Send disconnect message on disconnect
+    // First, the chat module receives the 'DISCONNECT' method
+    // with params as an array of active users
     MessageRouter.sendGlobalMessage(JSON.stringify({
       roomId: disconnected.room,
-      sender: disconnected.endpointid,
+      sender: 'SYSTEM',
       receiver: '',
-      app: 'SYSTEM',
+      app: 'CHAT',
       method: 'DISCONNECT',
       params: Rooms[disconnected.room].getActiveUsers()
+    }));
+    // Second, the AV module receives the 'DISCONNECT' message too
+    // with params as the disconnected message
+    MessageRouter.sendGlobalMessage(JSON.stringify({
+      roomId: disconnected.room,
+      sender: 'SYSTEM',
+      receiver: '',
+      app: 'AV',
+      method: 'DISCONNECT',
+      params: disconnected.endpointid
     }));
   });
 };
