@@ -20,39 +20,40 @@
     <i class="material-icons header__room-title-icon">mode_edit</i>
   </div>
 
-  {{!-- <!-- Spacemaker Flexbox Hack-->
-  <span></span>
-  <span></span> --}}
-
+  <!-- Username -->
   <h3 class="header__username">{{username}}</h3>
-
-    {{!-- <li><h1>Room Name: {{roomName}}</h1></li>
-    <li><h1>Username:  {{username}}</h1></li>
-    <li>LIVE AT <code>https://livepeers.com?roomid={{roomId}}</code></li>
-    {{#if pin}}
-      <li>PIN <code>{{pin}}</code></li>
-    {{/if}} --}}
 </header>
 
-{{!-- <section>
-  <!-- Chat Partial  -->
-  {{> chat}}
+<!-- Main App -->
+<section class="main">
+  <nav class="nav">
+    <i class="material-icons nav__icon nav__chat">chat_bubble</i>
+    <i class="material-icons nav__icon nav__video">videocam</i>
+    <i class="nav__icon nav__code">&lt;\&gt;</i>
+  </nav>
+  <div class="apps">
+    <div class="apps__av">
+      <h3>(video container)</h3>
+      <!-- Video goes here -->
+      <!--{{> av pin=pin}} -->
+    </div>
+
+    <div class="apps__chat">
+      <h3>(chat container)</h3>
+      <!-- Chat goes here -->
+      <!--{{> chat}} -->
+    </div>
+  </div>
 </section>
 
 
-<section>
-  <!-- AV Partial -->
-  {{> av pin=pin}}
-</section>
-
-<!-- End Session Anchor -->
-<section>
-  <a href="/endsession">
-    <!-- If font awesome is used, this markup would display telephone icon (http://fontawesome.io/icon/phone/) -->
-    <i class="fa fa-phone" aria-hidden="true"></i>
-    End Session
-  </a>
-</section> --}}
+<!--
+container (flex) two items
+  side-nav (thin bar)
+  app container relative
+    videoelt (absolute)
+    chatpartial (on chat click is 100% width, but usually right 0, 35%)
+-->
 
 <!-- DOM manipulations -->
 <script type="text/javascript">

@@ -11,16 +11,16 @@ body {
   padding: 0;
 }
 
-
+/**************/
 /*** Header ***/
+/**************/
 
 .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: 1em;
-  border: 1px solid blue;
+  font-size: .9em;
   padding: 1em;
   color: #757575;
   position: relative;
@@ -83,6 +83,7 @@ body {
   top: 5em;
   left: 25%;
   cursor: default;
+  z-index: 6;
 }
 
 .header__popout-text {
@@ -109,4 +110,70 @@ body {
   font-weight: 400;
   width: 35%;
   text-align: right;
+}
+
+
+/****************/
+/***** MAIN *****/
+/****************/
+
+/* Container */
+.main {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid red;
+  height: 90vh;
+}
+
+/*** Nav ***/
+.nav {
+  display: inline-flex;
+  background-color: #E0E0E0;
+  flex-direction: column;
+  align-items: center;
+  width: 5em;
+}
+
+/* Icon */
+.nav__icon {
+  font-size: 2em;
+  margin: 1em;
+  color: #9E9E9E;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.nav__video {
+  font-size: 2.5em;
+}
+
+/*** APPS ***/
+.apps {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+
+/** AV Container **/
+.apps__av {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 100%;
+  background-color: #E0F7FA;
+  z-index: 3;
+}
+
+/** AV Container **/
+.apps__chat {
+  display: inline-block;
+  width: 30%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: #B3E5FC;
+  z-index: 4;
 }
