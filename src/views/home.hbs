@@ -4,23 +4,25 @@
 <header>
   <!-- E.G. 'my webrtc workshop LIVE AT [www.livepeers.com?sessionid=EFGHI] CODE 6789' -->
   <ul>
-    <li><h1>{{roomName}}</h1></li>
-    <li>LIVE AT <code>https://livepeers.com?roomid={{roomid}}</code></li>
+    <li><img src="images/logo.png"/></li>
+    {{!-- <li><h1>Room Name: {{roomName}}</h1></li>
+    <li><h1>Username:  {{username}}</h1></li>
+    <li>LIVE AT <code>https://livepeers.com?roomid={{roomId}}</code></li>
     {{#if pin}}
       <li>PIN <code>{{pin}}</code></li>
-    {{/if}}
+    {{/if}} --}}
   </ul>
 </header>
 
-<section>
-  <!-- Chat Partial -->
-  {{> chat pin}}
+{{!-- <section>
+  <!-- Chat Partial  -->
+  {{> chat}}
 </section>
 
 
 <section>
   <!-- AV Partial -->
-  {{> av pin}}
+  {{> av pin=pin}}
 </section>
 
 <!-- End Session Anchor -->
@@ -30,4 +32,4 @@
     <i class="fa fa-phone" aria-hidden="true"></i>
     End Session
   </a>
-</section>
+</section> --}}
