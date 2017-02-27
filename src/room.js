@@ -8,17 +8,17 @@ class Room {
     this.endpoints[endpointId] = {
       name: '',
       permissions: 'CHAT',
-      commsid: ''
+      commsId: ''
     };
   }
-  updateEndpointName (endpointId, Name) {
+  updateUsernameame (endpointId, Name) {
     this.endpoints[endpointId].name = Name;
   }
-  updateEndpointPermissions (endpointId, permissions) {
+  updatePermissions (endpointId, permissions) {
     this.endpoints[endpointId].permissions = permissions;
   }
-  updateEndpointCommsID (endpointId, commsid) {
-    this.endpoints[endpointId].commsid = commsid;
+  updateCommsId (endpointId, commsId) {
+    this.endpoints[endpointId].commsId = commsId;
   }
   removeEndpoint (endpointId) {
     delete this.endpoints[endpointId];
@@ -26,9 +26,9 @@ class Room {
   getRoomName () {
     return this.roomname;
   }
-  getEndpointNameFromCommsID (commsid) {
+  getEndpointNameFromCommsID (commsId) {
     for (let props in this.endpoints) {
-      if (this.endpoints[props].commsid === commsid) {
+      if (this.endpoints[props].commsId === commsId) {
         return props;
       }
     }
