@@ -18,9 +18,9 @@ module.exports = {
     else {
       let endpointId = Math.random().toString(36).slice(2); // endpointId = new endpoint
       let permissions = ['CHAT'];
-      addEndpoint(endpointId);
-      updateUsername(endpointId, username);
-      updatePermissions(endpointId, permissions);
+      Rooms[roomId].addEndpoint(endpointId);
+      Rooms[roomId].updateUsername(endpointId, username);
+      Rooms[roomId].updatePermissions(endpointId, permissions);
       req.cookieAuth.set({ roomId, endpointId });
       reply.redirect('/');
     }
