@@ -13,7 +13,7 @@ module.exports = {
         roomName,
         errorMessage: 'That username is taken. Please choose another name.'
       };
-      reply.view('join', data);
+      reply.view('login', data);
     }
     else {
       let endpointId = Math.random().toString(36).slice(2); // endpointId = new endpoint

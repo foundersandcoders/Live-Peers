@@ -1,0 +1,11 @@
+<h2 class="login__join-text">Join {{roomName}}</h2>
+
+<form class="login" action="/">
+  <label class="join-form__label" for="username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{3,25}$">Username</label>
+  <textarea class="join-form__input" id="username" placeholder="username"/>
+  <button type="submit">Join room</button>
+</form>
+
+{{if errorMessage}}
+  <p>{{errorMessage}}</p>
+{{/if}}
