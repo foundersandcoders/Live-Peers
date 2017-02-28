@@ -11,8 +11,10 @@
   <div class="header__popout" style="display: none;">
     <h3 class="header__popout-text">Live at</h3>
     <p class="header__popout-text-box">https://livepeers.com?roomid={{roomId}}</p>
-    <h3 class="header__popout-text">Session Pin</h3>
-    <p class="header__popout-text-box">{{pin}}</p>
+    {{#if pin}}
+      <h3 class="header__popout-text">Session Pin</h3>
+      <p class="header__popout-text-box">{{pin}}</p>
+    {{/if}}
   </div>
   <!-- Room Title -->
   <div class="header__room-title">
