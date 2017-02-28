@@ -1,15 +1,17 @@
 const Rooms = require('../../rooms.js');
-const Room = require('../../room.js');
 
 module.exports = {
   method: 'GET',
   path: '/',
   handler: (req, reply) => {
-    // Student branch
+    // Student given URL by Mentor: livepeers.com?roomId=3hg3084
     if (req.query.roomId) {
-      if (req.auth.credentials) {
-        if (req.auth.isAuthenticated) {
-          let data = getMainViewData(req.auth.credentials);
+      // If cookie called LivePeers
+      if (req.auth.isAuthenticated) {
+        let roomId = req.auth.credentials.roomId;
+        let endpointId = req.auth.credentials.endpointId;
+        if (isValidRoomCredentials(roomId, endpointId)) {
+          let data = getMainViewData(roomId, endpointId);
           reply.view('main', data);
         }
         else {
@@ -35,10 +37,17 @@ module.exports = {
   }
 };
 
-const getMainViewData = function (cookieCredentials) {
-  let roomId = cookieCredentials.roomId;
-  let endpointId = cookieCredentials.endpointId;
-
+// 1 Check to see if Room & endpoint exist in Rooms
+const isValidRoomCredentials = (roomId, endpointId) => {
+  if (Rooms[roomId] && Rooms[roomId].endpoints[endpointId]) {
+    return true;
+  }
+  else {
+    return false;
+  }
+};
+// 2 Prepare Room Data
+const getMainViewData = (roomId, endpointId) => {
   let data = {
     roomId,
     endpointId,
