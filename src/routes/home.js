@@ -52,7 +52,6 @@ module.exports = {
 
 // 1 Check to see if Room & endpoint exist in Rooms
 const isValidRoomCredentials = (roomId, endpointId) => {
-  console.log('Actual Room', Rooms[roomId]);
   if (Rooms[roomId] && Rooms[roomId].endpoints[endpointId]) {
     return true;
   }
