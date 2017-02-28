@@ -4,32 +4,33 @@ module.exports = {
   method: 'GET',
   path: '/',
   handler: (req, reply) => {
-    // Student given URL by Mentor: livepeers.com?roomId=3hg3084
-    if (req.query.roomId) {
-      // If cookie called LivePeers
-      if (req.auth.isAuthenticated) {
-        let roomId = req.auth.credentials.roomId;
-        let endpointId = req.auth.credentials.endpointId;
-        if (isValidRoomCredentials(roomId, endpointId)) {
-          let data = getMainViewData(roomId, endpointId);
-          reply.view('main', data);
-        }
-        else {
-          reply.view('join', { errorMessage: "Incorrect credentials" });
-        }
-      }
-      else {
-        let roomId = req.query.roomId;
-        let roomData = Rooms[roomId].getroomName();
-        reply.view('join', roomData);
-      }
-    }
-    // Mentor branch
-    else {
-      if (req.auth.isAuthenticated) {
-        let data = getMainViewData(req.auth.credentials);
+      // If user has cookie called LivePeers
+    if (req.auth.isAuthenticated) {
+      let roomId = req.auth.credentials.roomId;
+      let endpointId = req.auth.credentials.endpointId;
+        // If user is has credentials for correct room
+      if (isValidRoomCredentials(roomId, endpointId)) {
+        let data = getMainViewData(roomId, endpointId);
         reply.view('main', data);
       }
+        // If student is trying to join the wrong room
+      else {
+        reply.view('join', { errorMessage: "You're trying to join the wrong room, please ask your mentor for the correct url." });
+      }
+    }
+      // If user doesn't have a cookie called LivePeers
+    else {
+        // Student is trying to join a room
+      if (req.query.roomId) {
+          // They will be using a URL given by a mentor e.g. livepeers.com?roomId=3hg3084
+        let roomId = req.query.roomId;
+        let roomData  = {
+          roomName: Rooms[roomId].getroomName(),
+          roomId: roomId
+        };
+        reply.view('join', roomData);
+      }
+        // Mentor is creating a new room
       else {
         reply.view('create');
       }
@@ -52,11 +53,10 @@ const getMainViewData = (roomId, endpointId) => {
     roomId,
     endpointId,
     roomName: Rooms[roomId].getroomName(),
-    username: Rooms[roomId].getUsername(endpointId),
-    permissions: Rooms[roomId].getPermissions(endpointId)
+    username: Rooms[roomId].getUsername(endpointId)
   };
 
-  if (Rooms[roomId].getPermissions().includes('AV')) {
+  if (Rooms[roomId].getPermissions(endpointId).includes('AV')) {
     data['pin'] = Rooms[roomId].getPin();
   }
 
