@@ -52,7 +52,7 @@ const getMainViewData = (roomId, endpointId) => {
   let data = {
     roomId,
     endpointId,
-    roomName: Rooms[roomId].getroomName(),
+    roomName: Rooms[roomId].getRoomName(),
     username: Rooms[roomId].getUsername(endpointId)
   };
 
