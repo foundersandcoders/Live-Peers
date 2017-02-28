@@ -1,8 +1,10 @@
 class Room {
-
   constructor (roomname) {
     this.roomname = roomname;
     this.endpoints = {};
+  }
+  addPin (pin) {
+    this.pin = pin;
   }
   addEndpoint (endpointId) {
     this.endpoints[endpointId] = {};
@@ -21,6 +23,9 @@ class Room {
   }
   getRoomName () {
     return this.roomname;
+  }
+  getPin () {
+    return this.pin;
   }
   getEndpointNameFromCommsID (commsId) {
     for (let props in this.endpoints) {
