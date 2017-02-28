@@ -1,61 +1,64 @@
-// // Main route here is commented out for testing purposes
-//
-// const { getRoomData, getUserData } = require('./handlers/roomQueries');
-//
-// module.exports = {
-//   method: 'GET',
-//   path: '/',
-//   handler: (req, reply) => {
-//     // Student branch
-//     if (req.query.roomId) {
-//       if (req.auth.credentials) {
-//         if (req.auth.isAuthenticated) {
-//           let roomId = req.auth.credentials.roomId;
-//           let endpointId = req.auth.credentials.endpointId;
-//           let roomData = getUserData(roomId, endpointId);
-//           reply.view('main', roomData);
-//         }
-//         else {
-//           reply.view('join', { errorMessage: "Incorrect credentials" });
-//         }
-//       }
-//       else {
-//         let roomId = req.query.roomId;
-//         let roomData = getRoomData(roomId);
-//         reply.view('join', roomData);
-//       }
-//     }
-//     // Mentor branch
-//     else {
-//       if (req.auth.isAuthenticated) {
-//         let roomId = req.auth.credentials.roomId;
-//         let endpointId = req.auth.credentials.endpointId;
-//         let userData = getUserData(roomId, endpointId);
-//         reply.view('main', userData);
-//       }
-//       else {
-//         reply.view('create');
-//       }
-//     }
-//   }
-// };
-
-// Test route to inject data into home view
+const Rooms = require('../../rooms.js');
 
 module.exports = {
   method: 'GET',
   path: '/',
   handler: (req, reply) => {
-
-    // For Demo
-    const viewData = {
-      roomId: 'fGhsAze',
-      roomName: 'mycoolroom',
-      pin: '1435',
-      endpointId: 'FhgOs',
-      username: 'John',
-    };
-
-    reply.view('home', viewData);
+      // If user has cookie called LivePeers
+    if (req.auth.isAuthenticated) {
+      let roomId = req.auth.credentials.roomId;
+      let endpointId = req.auth.credentials.endpointId;
+        // If user is has credentials for correct room
+      if (isValidRoomCredentials(roomId, endpointId)) {
+        let data = getMainViewData(roomId, endpointId);
+        reply.view('main', data);
+      }
+        // If student is trying to join the wrong room
+      else {
+        reply.view('join', { errorMessage: "You're trying to join the wrong room, please ask your mentor for the correct url." });
+      }
+    }
+      // If user doesn't have a cookie called LivePeers
+    else {
+        // Student is trying to join a room
+      if (req.query.roomId) {
+          // They will be using a URL given by a mentor e.g. livepeers.com?roomId=3hg3084
+        let roomId = req.query.roomId;
+        let roomData  = {
+          roomName: Rooms[roomId].getroomName(),
+          roomId: roomId
+        };
+        reply.view('join', roomData);
+      }
+        // Mentor is creating a new room
+      else {
+        reply.view('create');
+      }
+    }
   }
+};
+
+// 1 Check to see if Room & endpoint exist in Rooms
+const isValidRoomCredentials = (roomId, endpointId) => {
+  if (Rooms[roomId] && Rooms[roomId].endpoints[endpointId]) {
+    return true;
+  }
+  else {
+    return false;
+  }
+};
+// 2 Prepare Room Data
+const getMainViewData = (roomId, endpointId) => {
+  let data = {
+    roomId,
+    endpointId,
+    roomName: Rooms[roomId].getroomName(),
+    username: Rooms[roomId].getUsername(endpointId)
+  };
+
+  if (Rooms[roomId].getPermissions(endpointId).includes('AV')) {
+    data['pin'] = Rooms[roomId].getPin();
+  }
+
+  return data;
 };
