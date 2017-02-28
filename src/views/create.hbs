@@ -5,13 +5,13 @@
   <fieldset>
     <legend>Create new session</legend>
       <label for="username">Username</label>
-        <input id="username" name="Username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{1,25}$"/>
+        <input id="username" name="Username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{3,25}$" title="Username should be a minimum of three alphanumeric characters, with no spaces"/>
       <br />
       <label for="password">Password</label>
-        <input id="password" name="Password" type="password" placeholder="Enter your password" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+        <input id="password" name="Password" type="password" placeholder="Enter your password" />
       <br />
       <label for="sessionname">Session name</label>
-        <input id="sessionname" name="Session Name" type="text" placeholder="Enter a session name" pattern="^[A-Za-z0-9\s]+$"/>
+        <input id="sessionname" name="Session Name" type="text" placeholder="Enter a session name" pattern="^[A-Za-z0-9\s]+$" title="Session name should be a mimum of three alphanumeric characters, and can have spaces"/>
       <br />
       <label for="submit">Submit</label>
         <input type="submit"/>

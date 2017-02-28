@@ -5,8 +5,8 @@ module.exports = {
   method: 'POST',
   path: '/create',
   handler: (req, reply) => {
-    let username = req.body.username;
-    let roomName = req.body.roomName;
+    let username = req.payload.username;
+    let roomName = req.payload.roomName;
     let roomId = Math.random().toString(36).slice(2);
     let pin = Math.floor(Math.random() * 8000) + 1000;
     let endpointId = Math.random().toString(36).slice(2);
