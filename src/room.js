@@ -1,7 +1,7 @@
 class Room {
   constructor (roomname) {
     this.roomname = roomname;
-    this.pin = Math.floor(Math.random() * 10000);
+    this.pin = Math.floor(Math.random() * 8000) + 1000;
     this.endpoints = {};
   }
   addEndpoint (endpointId) {
