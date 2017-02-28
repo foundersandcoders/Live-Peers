@@ -29,7 +29,7 @@ class Comms {
   }
 
   // Send Method
-  send (app, method, receiver, params) {
+  send (app, method, receiver, params = "") {
     this.ws.emit('message', JSON.stringify({
       roomId: this.roomId,
       sender: this.endpointid,
