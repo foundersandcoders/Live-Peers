@@ -51,13 +51,13 @@ const getMainViewData = (roomId, endpointId) => {
   let data = {
     roomId,
     endpointId,
-    roomName: Rooms.roomId.getroomName(),
-    username: Rooms.roomId.getUsername(endpointId),
-    permissions: Rooms.roomId.getPermissions(endpointId)
+    roomName: Rooms[roomId].getroomName(),
+    username: Rooms[roomId].getUsername(endpointId),
+    permissions: Rooms[roomId].getPermissions(endpointId)
   };
 
-  if (Rooms.roomId.getPermissions().includes('AV')) {
-    data['pin'] = Rooms.roomId.getPin();
+  if (Rooms[roomId].getPermissions().includes('AV')) {
+    data['pin'] = Rooms[roomId].getPin();
   }
 
   return data;
