@@ -22,6 +22,9 @@ class Room {
   getRoomName () {
     return this.roomname;
   }
+  getPin () {
+    return this.pin;
+  }
   getUsername (endpointId) {
     return this.endpoints[endpointId].username;
   }
