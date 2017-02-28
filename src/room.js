@@ -1,8 +1,10 @@
 class Room {
-
   constructor (roomname) {
     this.roomname = roomname;
     this.endpoints = {};
+  }
+  addPin (pin) {
+    this.pin = pin;
   }
   addEndpoint (endpointId) {
     this.endpoints[endpointId] = {};
