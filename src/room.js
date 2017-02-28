@@ -40,7 +40,7 @@ class Room {
       }
     }
   }
-  getActiveUsers() {
+  getActiveUserDetails() {
     let users = [];
     for (let props in this.endpoints) {
       let endpoint = this.endpoints[props];
