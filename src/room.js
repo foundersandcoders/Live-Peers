@@ -40,6 +40,20 @@ class Room {
       }
     }
   }
+  getActiveUsers() {
+    let users = [];
+    for (let props in this.endpoints) {
+      let endpoint = this.endpoints[props];
+      if (endpoint.commsId) {
+        users.push({
+          username: endpoint.username,
+          commsId: endpoint.commsId,
+          permissions: endpoint.permissions
+        });
+      }
+    }
+    return users;
+  }
   getCommsId (endpointId) {
     return this.endpoints[endpointId].commsId;
   }
