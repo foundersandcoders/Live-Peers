@@ -1,0 +1,19 @@
+<h1>We are LivePeers!</h1>
+<h3>Simply create a new session</h3>
+<!-- Create form -->
+<form class="login" action="/create" method="post">
+  <fieldset>
+    <legend>Create new session</legend>
+      <label for="username">Username</label>
+        <input id="username" name="Username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{1,25}$"/>
+      <br />
+      <label for="password">Password</label>
+        <input id="password" name="Password" type="password" placeholder="Enter your password" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+      <br />
+      <label for="sessionname">Session name</label>
+        <input id="sessionname" name="Session Name" type="text" placeholder="Enter a session name" pattern="^[A-Za-z0-9\s]+$"/>
+      <br />
+      <label for="submit">Submit</label>
+        <input type="submit"/>
+  </fieldset>
+</form>
