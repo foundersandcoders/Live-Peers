@@ -57,5 +57,8 @@ class Room {
   getCommsId (endpointId) {
     return this.endpoints[endpointId].commsId;
   }
+  removeCommsId(endpointId) {
+    delete this.endpoints[endpointId].commsId;
+  }
 }
 module.exports = Room;
