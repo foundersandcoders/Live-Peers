@@ -31,14 +31,14 @@ module.exports = {
       // If user doesn't have a cookie called LivePeers
       else {
         // Student is trying to join a room
-        if (req.query.roomId) {
+        if (req.query.roomid) {
           // They will be using a URL given by a mentor e.g. livepeers.com?roomId=3hg3084
-          let roomId = req.query.roomId;
+          let roomId = req.query.roomid;
           let roomData  = {
-            roomName: Rooms[roomId].getroomName(),
+            roomName: Rooms[roomId].getRoomName(),
             roomId: roomId
           };
-          reply.view('login', roomData);
+          reply.view('join', roomData);
         }
         // Mentor is creating a new room
         else {

@@ -4,16 +4,16 @@ module.exports = {
   method: 'POST',
   path: '/join',
   handler: (req, reply) => {
-    let roomId = req.body.roomId;
-    let roomName = req.body.roomName;
-    let username = req.body.username;
+    let roomId = req.payload.roomId;
+    let roomName = req.payload.roomName;
+    let username = req.payload.username;
     if (usernameIsInRoom(roomId, username)) {
       let data = {
         roomId,
         roomName,
         errorMessage: 'That username is taken. Please choose another name.'
       };
-      reply.view('login', data);
+      reply.view('join', data);
     }
     else {
       let endpointId = Math.random().toString(36).slice(2); // endpointId = new endpoint
@@ -28,7 +28,7 @@ module.exports = {
 };
 
 const usernameIsInRoom = (givenRoom, givenUsername) => {
-  for (let endpoint in Rooms[givenRoom]) {
+  for (let endpoint in Rooms[givenRoom].endpoints) {
     let usernameInRoom = Rooms[givenRoom].getUsername(endpoint);
     if (givenUsername === usernameInRoom) {
       return true;

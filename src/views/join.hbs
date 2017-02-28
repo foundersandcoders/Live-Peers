@@ -1,12 +1,17 @@
-<h1 class="header__room-title-text">Welcome to LivePeers</h2>
-<h2 class="header__room-title-text">Join {{roomName}}</h2>
+{{>nav}}
+<h1 class="login__welcome-text">Welcome to LivePeers</h1>
+<h2 class="login__join-text">Join {{roomName}}</h2>
+{{#if wrongRoomMessage}}
+  <p class="login__wrong-room">{{wrongRoomMessage}}</p>
+{{/if}}
 
-<form class="login" action="/">
+<form class="login" action="/join" method="post">
   <label class="join-form__label" for="username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{3,25}$">Username</label>
-  <textarea class="join-form__input" id="username" placeholder="username"/>
+  <input class="join-form__input" id="username" type="text" placeholder="username" name="username"></input>
+  <input type="text" hidden value="{{roomId}}" name="roomId"/>
   <button type="submit">Join room</button>
 </form>
 
-{{if errorMessage}}
+{{#if errorMessage}}
   <p>{{errorMessage}}</p>
 {{/if}}
