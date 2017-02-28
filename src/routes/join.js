@@ -28,7 +28,7 @@ module.exports = {
 };
 
 const usernameIsInRoom = (givenRoom, givenUsername) => {
-  for (let endpoint in givenRoom) {
+  for (let endpoint in Rooms[givenRoom]) {
     let usernameInRoom = Rooms[givenRoom].getUsername(endpoint);
     if (givenUsername === usernameInRoom) {
       return true;
