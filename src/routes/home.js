@@ -9,10 +9,8 @@ module.exports = {
     if (req.query.roomId) {
       if (req.auth.credentials) {
         if (req.auth.isAuthenticated) {
-          let roomId = req.auth.credentials.roomId;
-          let endpointId = req.auth.credentials.endpointId;
-          let userData = getUserData(roomId, endpointId);
-          reply.view('main', userData);
+          let data = getMainViewData(req.auth.credentials);
+          reply.view('main', data);
         }
         else {
           reply.view('join', { errorMessage: "Incorrect credentials" });
@@ -27,10 +25,8 @@ module.exports = {
     // Mentor branch
     else {
       if (req.auth.isAuthenticated) {
-        let roomId = req.auth.credentials.roomId;
-        let endpointId = req.auth.credentials.endpointId;
-        let userData = getUserData(roomId, endpointId);
-        reply.view('main', userData);
+        let data = getMainViewData(req.auth.credentials);
+        reply.view('main', data);
       }
       else {
         reply.view('create');
@@ -39,13 +35,21 @@ module.exports = {
   }
 };
 
-const getUserData = (room, endpoint) => {
-  let roomId = Rooms[room];
-  let endpointId = Rooms[room][endpoint];
+const getMainViewData = function (cookieCredentials) {
+  let roomId = cookieCredentials.roomId;
+  let endpointId = cookieCredentials.endpointId;
 
-  let roomName = roomId.getroomName();
-  let username = roomId.endpoints[endpointId].getUsername();
-  let permissions = roomId.endpoints[endpointId].getPermissions();
+  let data = {
+    roomId,
+    endpointId,
+    roomName: Rooms.roomId.getroomName(),
+    username: Rooms.roomId.getUsername(endpointId),
+    permissions: Rooms.roomId.getPermissions(endpointId)
+  };
 
-  return { roomId, roomName, endpointId, username, permissions };
+  if (Rooms.roomId.getPermissions().includes('AV')) {
+    data['pin'] = Rooms.roomId.getPin();
+  }
+
+  return data;
 };

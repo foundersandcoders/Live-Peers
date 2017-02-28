@@ -22,6 +22,12 @@ class Room {
   getRoomName () {
     return this.roomname;
   }
+  getUsername (endpointId) {
+    return this.endpoints[endpointId].username;
+  }
+  getPermissions (endpointId) {
+    return this.endpoints[endpointId].permissions;
+  }
   getEndpointNameFromCommsID (commsId) {
     for (let props in this.endpoints) {
       if (this.endpoints[props].commsId === commsId) {
