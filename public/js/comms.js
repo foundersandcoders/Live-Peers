@@ -1,33 +1,49 @@
-// This comms will be loaded into each client, will use the socket.io library
+// Main comms class
+class Comms {
 
-// comms.js
-function Comms (roomId, endpointId) {
-  this.endpointid = endpointId;
-  this.roomid = roomId;
-  this.handlers = {};
-  Comms.endpoints[this.endpointid] = this;
-  this.ws = io(); // global io() function made available via web sockets
-  var self = this;
-  this.ws.on('message', function (msg) {
-    msg = JSON.parse(msg);
-    self.handlers[msg.app + '.' + msg.method](this, msg.from, msg.params);
-  });
+  // Takes endopint and room ID
+  constructor (roomId, endpointId) {
+    var self = this;
+    this.endpointid = endpointId;
+    this.externalendpoints = new Set();
+    this.roomid = roomId;
+    this.handlers = {};
+    this.ws = io();
+
+    this.ws.on('message', function (msg) {
+      msg = JSON.parse(msg);
+      // Simply calls the handler with 'from' and 'params' (not self)
+      self.handlers[msg.app + '.' + msg.method](msg.sender, msg.params);
+    });
+
+    Comms.endpoints[this.endpointid] = this;
+  }
+
+  // Register Handler
+  registerHandler (app, method, cb) {
+    this.handlers[`${app}.${method}`] = cb;
+  }
+  // Add external endpoint
+  addExternalEndpoint (endpoint) {
+    this.externalendpoints.add(endpoint);
+  }
+
+  // Send Method
+  send (app, method, receiver, params = "") {
+    this.ws.emit('message', JSON.stringify({
+      roomId: this.roomId,
+      sender: this.endpointid,
+      receiver: receiver,
+      app: app,
+      method: method,
+      params: params
+    }));
+  }
+
 }
 
-Comms.endpoints = {}; // Holds endpoints
+// Get endpoint Id (useful when client has multiple endpoints)
+Comms.getEndPointID = (endpointId) => Comms.endpoints[endpointId];
 
-Comms.getEndPointID = function (endpointId) { // Get endpoints
-  return Comms.endpoints[endpointId];
-};
-
-// This function is called by wecrtc.js, av.js and chat.js when registering
-Comms.prototype.registerHandler = function (app, method, cb) {
-  var fullName = app + '.' + method;
-  this.handlers[fullName] = cb;
-};
-
-Comms.prototype.send = function (app, method, to, params) {
-  this.ws.emit('message', JSON.stringify({
-    roomId: this.roomId, from: this.endpointid, to: to, app: app, method: method, params: params
-  }));
-};
+// Global endpoints
+Comms.endpoints = {};

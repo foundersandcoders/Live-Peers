@@ -1,0 +1,98 @@
+<!-- Header -->
+<header class="header">
+  <!-- Logo -->
+  <img class="header__logo" src="images/logo.png"/>
+  <!-- Info -->
+  <div class="header__info">
+    <span class="header__info-text">Session Info</span>
+    <i class="material-icons header__info-icon">keyboard_arrow_down</i>
+  </div>
+  <!-- Popout -->
+  <div class="header__popout" style="display: none;">
+    <h3 class="header__popout-text">Live at</h3>
+    <p class="header__popout-text-box">https://livepeers.com?roomid={{roomId}}</p>
+    {{#if pin}}
+      <h3 class="header__popout-text">Session Pin</h3>
+      <p class="header__popout-text-box">{{pin}}</p>
+    {{/if}}
+  </div>
+  <!-- Room Title -->
+  <div class="header__room-title">
+    <h2 class="header__room-title-text">{{roomName}}</h2>
+    <i class="material-icons header__room-title-icon">mode_edit</i>
+  </div>
+
+  <!-- Username -->
+  <h3 class="header__username">{{username}}</h3>
+</header>
+
+<!-- Main App -->
+<section class="main">
+  <nav class="nav">
+    <!-- Chat Bubble -->
+    <div class="selected nav__link nav__chat">
+      <i class="material-icons nav__chat-icon">chat_bubble</i>
+    </div>
+    <!-- Video Cam -->
+    <div class="nav__link nav__av">
+      <i class="material-icons nav__av-icon">videocam</i>
+    </div>
+    <!-- Code -->
+    <div class="nav__link nav__code">
+      <i class="nav__icon nav__code-icon">&lt;\&gt;</i>
+    </div>
+  </nav>
+  <div class="apps">
+    <div class="apps__av">
+      <h3>(video container goes here)</h3>
+      <!-- Video goes here -->
+      <!--{{> av pin=pin}} -->
+    </div>
+
+    <div class="selected apps__chat">
+      <h3>(chat container goes here)</h3>
+      <!-- Chat goes here -->
+      <!--{{> chat }} -->
+    </div>
+  </div>
+</section>
+
+<!--
+Here we need scripts to load the comms, av and chat modules.
+The endpointId is injected by this view, so can be used to initialise the comms module -->
+<!-- <script></script> -->
+
+<!-- DOM manipulations -->
+<script type="text/javascript">
+(function(){
+  // Elts
+  const infoText = document.querySelector('.header__info');
+  const popout = document.querySelector('.header__popout');
+  const chatBubble = document.querySelector('.nav__chat');
+  const videoIcon = document.querySelector('.nav__av');
+  const chatWindow = document.querySelector('.apps__chat');
+
+  // Toggle extra info
+  infoText.addEventListener('click', () =>{
+    if (popout.style.display === 'none') {
+      popout.style = ''
+    } else {
+      popout.style.display = 'none'
+    }
+  })
+
+  // When ChatBubble is clicked
+  chatBubble.addEventListener('click', (e) => {
+    chatBubble.classList.add('selected');
+    videoIcon.classList.remove('selected');
+    chatWindow.classList.add('selected');
+  })
+  // When VideoIcon is clicked
+  videoIcon.addEventListener('click', (e) => {
+    videoIcon.classList.add('selected');
+    chatBubble.classList.remove('selected');
+    chatWindow.classList.remove('selected');
+  })
+})();
+
+</script>
