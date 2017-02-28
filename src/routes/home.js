@@ -1,4 +1,4 @@
-const Rooms = require('../../rooms.js');
+const Rooms = require('../rooms.js');
 
 module.exports = {
   method: 'GET',

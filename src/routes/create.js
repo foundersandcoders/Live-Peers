@@ -1,5 +1,5 @@
-const Rooms = require('../../rooms.js');
-const Room = require('../../room.js');
+const Rooms = require('../rooms.js');
+const Room = require('../room.js');
 
 module.exports = {
   method: 'POST',
