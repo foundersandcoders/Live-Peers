@@ -16,7 +16,6 @@ module.exports = {
     handler: (req, reply) => {
       // If user has cookie called LivePeers
       if (req.auth.isAuthenticated) {
-        console.log('yes');
         let roomId = req.auth.credentials.roomId;
         let endpointId = req.auth.credentials.endpointId;
         // If user is has credentials for correct room
@@ -53,6 +52,7 @@ module.exports = {
 
 // 1 Check to see if Room & endpoint exist in Rooms
 const isValidRoomCredentials = (roomId, endpointId) => {
+  console.log('Actual Room', Rooms[roomId]);
   if (Rooms[roomId] && Rooms[roomId].endpoints[endpointId]) {
     return true;
   }
