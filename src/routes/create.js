@@ -1,4 +1,5 @@
 const Rooms = require('../../rooms.js');
+const Room = require('../../room.js');
 
 module.exports = {
   method: 'POST',
@@ -6,20 +7,28 @@ module.exports = {
   handler: (req, reply) => {
     // Verify username and password - in a later sprint
     // if (user is authenticated) {
-      let roomId = Math.random().toString(36).slice(2);
-      let endpointId = Math.random().toString(36).slice(2);
+    let username = req.body.username;
+    let roomName = req.body.roomName;
+    let roomId = Math.random().toString(36).slice(2);
+    roomId = new Room(username, roomName, permissions);
 
-      let Rooms[roomId] = roomId;
-      let Rooms[roomName] = req.body.roomName;
-      let Rooms[req.body.pin] = Math.floor(Math.random() * 10000);
-      let Rooms.endpoints[endpointId] = {
-        username: req.body.username,
-        permissions: ['CHAT', 'AV']
-      };
+    let endpointId = Room.roomId.createEndpointId();
+    let permissions = ['CHAT', 'AV'];
+    Room.roomId.addEndpoint(endpointId);
+    Room.roomId.updateUsername(endpointId, username);
+    Room.roomId.updatePermissions(endpointId, permissions);
 
-      req.cookieAuth.set({ roomId: roomId, endpointId: endpointId });
+    let data = {
+      roomId: roomId,
+      roomName: roomName,
+      endpointId: endpointId,
+      username: username,
+      permissions: permissions
+    };
 
-      reply.redirect('/');
+    req.cookieAuth.set({ roomId: roomId, endpointId: endpointId });
+
+    reply.view('main', data);
     // } else {
     //   let loginfailmessage = checkLoginDetails()
     //     where checkLoginDetails returns { wrongUsernameMessage, wrongPasswordMessage}
