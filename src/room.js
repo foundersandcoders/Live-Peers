@@ -1,11 +1,8 @@
 class Room {
-  constructor (username, roomname) {
+  constructor (roomname) {
     this.roomname = roomname;
     this.pin = Math.floor(Math.random() * 10000);
     this.endpoints = {};
-  }
-  createEndpointId () {
-    return Math.random().toString(36).slice(2);
   }
   addEndpoint (endpointId) {
     this.endpoints[endpointId] = {};
