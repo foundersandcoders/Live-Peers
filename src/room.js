@@ -16,11 +16,24 @@ class Room {
   updatePermissions (endpointId, permissions) {
     this.endpoints[endpointId]['permissions'] = permissions;
   }
+  updateCommsId (endpointId, commsId) {
+    this.endpoints['endpointId']['commsId'] = commsId;
+  }
+  removeEndpoint (endpointId) {
+    delete this.endpoints[endpointId];
+  }
   getRoomName () {
     return this.roomname;
   }
-  getEndpointId (endpointId) {
-    return this.endpoints.endpointId;
+  getEndpointNameFromCommsID (commsId) {
+    for (let props in this.endpoints) {
+      if (this.endpoints[props].commsId === commsId) {
+        return props;
+      }
+    }
+  }
+  getCommsId (endpointId) {
+    return this.endpoints[endpointId].commsId;
   }
 }
 module.exports = Room;
