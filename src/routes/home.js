@@ -25,7 +25,7 @@ module.exports = {
         }
         // If student is trying to join the wrong room
         else {
-          reply.view('login', { wrongRoom: "You're trying to join the wrong room, please ask your mentor for the correct url." });
+          reply.view('join', { wrongRoom: "You're trying to join the wrong room, please ask your mentor for the correct url." });
         }
       }
       // If user doesn't have a cookie called LivePeers
