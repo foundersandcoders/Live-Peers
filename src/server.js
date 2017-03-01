@@ -2,19 +2,26 @@ const Hapi = require('hapi');
 const CookieAuth = require('hapi-auth-cookie');
 const Vision = require('vision');
 const Inert = require('inert');
-const Path = require('path');
+const fs = require('fs');
+const path = require('path');
 const env = require('env2')('./config.env');
 const routes = require('./routes/index.js');
 
 const server = new Hapi.Server();
 
+const tls = {
+  key: fs.readFileSync(path.join(__dirname, '../keys/key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, '../keys/cert.pem'))
+};
+
 server.connection({
   port: process.env.PORT || 8080,
   routes: {
     files: {
-      relativeTo: Path.join(__dirname, '../public')
+      relativeTo: path.join(__dirname, '../public')
     }
-  }
+  },
+  tls: tls
 });
 
 server.register([Vision, Inert, CookieAuth], (err) => {
@@ -26,10 +33,10 @@ server.register([Vision, Inert, CookieAuth], (err) => {
     },
     relativeTo: __dirname,
     path: 'views',
-    layoutPath: 'views/layout/',
-    helpersPath: 'views/helpers/',
+    layoutpath: 'views/layout/',
+    helperspath: 'views/helpers/',
     layout: 'layout',
-    partialsPath: 'views/partials/'
+    partialspath: 'views/partials/'
   });
 
   const options = {
