@@ -25,17 +25,17 @@ module.exports = {
         }
         // If student is trying to join the wrong room
         else {
-          reply.view('join', { errorMessage: "You're trying to join the wrong room, please ask your mentor for the correct url." });
+          reply.view('join', { wrongRoom: "You're trying to join the wrong room, please ask your mentor for the correct url." });
         }
       }
       // If user doesn't have a cookie called LivePeers
       else {
         // Student is trying to join a room
-        if (req.query.roomId) {
+        if (req.query.roomid) {
           // They will be using a URL given by a mentor e.g. livepeers.com?roomId=3hg3084
-          let roomId = req.query.roomId;
+          let roomId = req.query.roomid;
           let roomData  = {
-            roomName: Rooms[roomId].getroomName(),
+            roomName: Rooms[roomId].getRoomName(),
             roomId: roomId
           };
           reply.view('join', roomData);
@@ -47,7 +47,6 @@ module.exports = {
       }
     }
   }
-
 };
 
 // 1 Check to see if Room & endpoint exist in Rooms
