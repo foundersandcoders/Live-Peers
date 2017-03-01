@@ -1,3 +1,5 @@
 module.exports = [
-  require('./home')
+  require('./home'),
+  require('./create'),
+  require('./join')
 ];
