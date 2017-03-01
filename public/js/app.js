@@ -56,7 +56,7 @@
       }
       else if (endpoints.length === 2) {
         myAV.addMyMediaStreamToVideo(myVideo);
-        endpoints = endpoints.reduce((ep) => ep !== myComms.endpointId);
+        endpoints = endpoints.filter((ep) => ep !== myComms.endpointId);
         myAV.callEndpoint(endpoints[0]);
         AVActive = true;
       }
