@@ -10,7 +10,7 @@ module.exports = {
     let roomId = Math.random().toString(36).slice(2);
     let pin = Math.floor(Math.random() * 8000) + 1000;
     let endpointId = Math.random().toString(36).slice(2);
-    let permissions = ['CHAT', 'AV'];
+    let permissions = ['CHAT']; // Will be CHAT and AV by default in a future sprint
     Rooms[roomId] = new Room(roomName);
     Rooms[roomId].addPin(pin);
     Rooms[roomId].addEndpoint(endpointId);
