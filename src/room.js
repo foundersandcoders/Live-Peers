@@ -40,6 +40,16 @@ class Room {
       }
     }
   }
+  getEndpointsWithPermission (permission) {
+    let endpoints = [];
+    for (let endpoint in this.endpoints) {
+      let permissions = this.endpoints[endpoint].permissions;
+      if (permissions.includes(permission)) {
+        endpoints.push(endpoint);
+      }
+    }
+    return endpoints;
+  }
   getActiveUserDetails() {
     let users = [];
     for (let props in this.endpoints) {
