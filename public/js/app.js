@@ -1,12 +1,14 @@
 (function(){
   // Elts
+  let AVActive = false;
   const infoText = document.querySelector('.header__info');
   const popout = document.querySelector('.header__popout');
   const chatBubble = document.querySelector('.nav__chat');
   const videoIcon = document.querySelector('.nav__av');
   const chatWindow = document.querySelector('.apps__chat');
-  const peerVideo = document.querySelector('av__peer-video');
-  const myVideo = document.querySelector('av__my-video');
+  const myVideo = document.querySelector('.av__my-video');
+  const errorMessage = document.querySelector('.av__error-message');
+  const peerVideo = document.querySelector('.av__peer-video');
 
   // Toggle extra info
   infoText.addEventListener('click', () =>{
@@ -36,15 +38,31 @@
     };
     myAV.onEndCall = () => {
       myVideo.classList.remove('shrink');
+      AVActive = false;
     };
     // When VideoIcon is clicked
-    const videoIconEvent = videoIcon.addEventListener('click', (e) => {
+    videoIcon.addEventListener('click', (e) => {
       videoIcon.classList.add('selected');
       chatBubble.classList.remove('selected');
       chatWindow.classList.remove('selected');
-      myComms.send('SYSTEM', 'UPDATEPERMISSIONS', '', ['CHAT', 'AV']);
+      if (!AVActive) {
+        myComms.send('SYSTEM', 'UPDATEPERMISSIONS', '', ['CHAT', 'AV']);
+      }
     });
-    myComms.registerHandler('SYSTEM', 'UPDATEPERMISSIONS', (sender, params) => {
+    myComms.registerHandler('SYSTEM', 'UPDATEPERMISSIONS', (sender, endpoints) => {
+      if (endpoints.length === 1) {
+        myAV.addMyMediaStreamToVideo(myVideo);
+        AVActive = true;
+      }
+      else if (endpoints.length === 2) {
+        myAV.addMyMediaStreamToVideo(myVideo);
+        endpoints = endpoints.reduce((ep) => ep !== myComms.endpointId);
+        myAV.callEndpoint(endpoints[0]);
+        AVActive = true;
+      }
+      else {
+        errorMessage.style.display = "block";
+      }
     });
   });
   // Register CommsID

@@ -86,8 +86,8 @@ class AV {
   }
 
   // 1. Get video of peer
-  callEndpoint (peerendpointid) {
-    this.comms.send(this.app, 'CALL_REQUEST', peerendpointid, '');
+  callEndpoint (peerEndpointId) {
+    this.comms.send(this.app, 'CALL_REQUEST', peerEndpointId);
   }
 
   // 2. Only accept a call if we're currently idle
