@@ -38,7 +38,7 @@ module.exports = (io) => {
         Rooms[roomId].updateCommsId(sender, commsid);
           // Send message back to them with active users in the room
           // and active users in the room
-        MessageRouter.sendPrivateMessage(commsid, JSON.stringify({
+        MessageRouter.privateMessage(commsid, JSON.stringify({
           roomId: roomId,
           sender: sender,
           receiver: '',
