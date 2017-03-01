@@ -52,7 +52,7 @@ module.exports = (io) => {
     case ('CHAT') : {
       if (method === 'MESSAGE') {
           // Send global chat message, with username of sender and their message
-        MessageRouter.sendGlobalMessage(JSON.stringify({
+        MessageRouter.globalMessage(JSON.stringify({
           roomId: roomId,
           sender: sender,
           receiver: '',
@@ -63,7 +63,7 @@ module.exports = (io) => {
       } else if (method === 'REGISTER') {
           // On register, send back message with active users
           // and active users in the room
-        MessageRouter.sendPrivateMessage(commsid, JSON.stringify({
+        MessageRouter.privateMessage(commsid, JSON.stringify({
           roomId: roomId,
           sender: sender,
           receiver: '',
@@ -79,9 +79,9 @@ module.exports = (io) => {
       const receiverCommsId = Rooms[roomId].getCommsID(receiver);
         // If sender has permissions, then send the message to the receiver
       if (Rooms[roomId].getPermissions(sender).includes('av')) {
-        MessageRouter.sendPrivateMessage(receiverCommsId, msg);
+        MessageRouter.privateMessage(receiverCommsId, msg);
       } else {
-        MessageRouter.sendPrivateMessage(commsid, JSON.stringify({
+        MessageRouter.privateMessage(commsid, JSON.stringify({
           roomId: roomId,
           sender: sender,
           receiver: receiver,
@@ -103,7 +103,7 @@ module.exports = (io) => {
     // Send disconnect message on disconnect
     // First, the chat module receives the 'DISCONNECT' method
     // with params as an array of active users
-    MessageRouter.sendGlobalMessage(JSON.stringify({
+    MessageRouter.globalMessage(JSON.stringify({
       roomId: disconnected.room,
       sender: 'SYSTEM',
       receiver: '',
@@ -113,7 +113,7 @@ module.exports = (io) => {
     }));
     // Second, the AV module receives the 'DISCONNECT' message too
     // with params as the disconnected message
-    MessageRouter.sendGlobalMessage(JSON.stringify({
+    MessageRouter.globalMessage(JSON.stringify({
       roomId: disconnected.room,
       sender: 'SYSTEM',
       receiver: '',
