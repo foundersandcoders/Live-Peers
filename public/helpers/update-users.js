@@ -28,7 +28,7 @@ const addUser = (type, user) => {
 };
 
 const createClassName = (type) =>{
-  let className = ".class__-list";
-  var position = 8;
+  const className = ".class__-list";
+  const position = 8;
   return [className.slice(0, position), type, className.slice(position)].join('');
 };
