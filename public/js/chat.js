@@ -1,4 +1,3 @@
-
 class Chat {
   constructor (comms, input, output, form) {
     this.comms = comms;
