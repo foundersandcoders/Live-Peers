@@ -30,4 +30,10 @@
 
   // Comms Initialise (using global scope variables)
   const myComms = new Comms(myRoomId, myEndpointId);
+  // Register initial system callback
+  myComms.registerHandler('SYSTEM', 'REGISTER', (sender, params) =>{
+    // If success then initialise chat.js module
+  });
+  // Register CommsID
+  myComms.send('SYSTEM', 'REGISTER', '', '');
 })();
