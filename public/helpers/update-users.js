@@ -1,6 +1,6 @@
 const updatePatricipants = (sender, participants) => {
   participants.forEach((participant) => {
-    if(participant.permissions.length == 2){
+    if(participant.permissions.includes('AV') && participant.permissions.includes('CHAT')){
       if(mentorExist()){
         addParticipant('moderator', participant);
       }
@@ -8,7 +8,7 @@ const updatePatricipants = (sender, participants) => {
         addParticipant('mentor', participant);
       }
     }
-    else{
+    else if(participant.permissions.length === 1 && participant.permissions.includes('CHAT')){
       addParticipant('students', participant);
     }
   });
