@@ -6,7 +6,7 @@ class Comms {
     var self = this;
     this.endpointid = endpointId;
     this.externalendpoints = new Set();
-    this.roomid = roomId;
+    this.roomId = roomId;
     this.handlers = {};
     this.ws = io();
 

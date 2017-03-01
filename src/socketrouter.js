@@ -132,7 +132,7 @@ module.exports = (io) => {
       receiver: '',
       app: 'CHAT',
       method: 'DISCONNECT',
-      params: Rooms[disconnected.room].getActiveUsers()
+      params: Rooms[disconnected.room].getActiveUserDetails()
     }));
     // Second, the AV module receives the 'DISCONNECT' message too
     // with params as the disconnected message
