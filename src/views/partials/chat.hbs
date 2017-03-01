@@ -1,16 +1,22 @@
-<h1>{{pin}}</h1>
 <div class="chat">
-  <div class="chat__window">
+  <!-- Chat Window -->
+  <div class="paneselect chat__window">
+    <div class="chat__title-container">
+      <h3 class="chat__title">Chat</h3>
+    </div>
     <div class="chat__messages">
       <!-- username:message -->
     </div>
     <form class="chat__form">
-      <input type="text" class="chat__input">
-      <input type="submit" class="chat__send" value="send">
+      <input type="text" class="chat__input" placeholder="Type a message">
+      <button type="submit" class="chat__send" value="send">Send</button>
     </form>
   </div>
-
-  <div class="online">
+  <!-- Online Window -->
+  <div class="online__window">
+    <div class="online__title-container">
+      <h3 class="online__title">Online</h3>
+    </div>
     <div class="online__mentor">
       <h1 class="online__header">Mentor</h1>
       <ul class="online__mentor-list">
@@ -31,4 +37,3 @@
     </div>
   </div>
 </div>
-
