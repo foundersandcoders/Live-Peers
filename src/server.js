@@ -18,7 +18,7 @@ server.connection({
   port: process.env.PORT || 8080,
   routes: {
     files: {
-      relativeTo: path.join(__dirname, '../public')
+      relativeTo: __dirname
     }
   },
   tls: tls
@@ -33,10 +33,10 @@ server.register([vision, inert, cookieauth], (err) => {
     },
     relativeTo: __dirname,
     path: 'views',
-    layoutpath: 'views/layout/',
-    helperspath: 'views/helpers/',
+    layoutPath: 'views/layout/',
+    helpersPath: 'views/helpers/',
     layout: 'layout',
-    partialspath: 'views/partials/'
+    partialsPath: 'views/partials/'
   });
 
   const options = {
