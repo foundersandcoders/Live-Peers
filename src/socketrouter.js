@@ -28,6 +28,7 @@ module.exports = (io) => {
     const receiver = parsed.receiver;
     const app = parsed.app;
     const method = parsed.method;
+    const params = parsed.params;
 
     // Message router
     switch (app) {
@@ -43,16 +44,35 @@ module.exports = (io) => {
           receiver: '',
           app: 'SYSTEM',
           method: 'REGISTER',
-          params: Rooms[roomId].getActiveUsers()
+          params: 'SUCCESS'
         }));
       }
       break;
     }
     case ('CHAT') : {
       if (method === 'MESSAGE') {
-          // Send global chat message
-        MessageRouter.sendGlobalMessage(msg);
+          // Send global chat message, with username of sender and their message
+        MessageRouter.sendGlobalMessage(JSON.stringify({
+          roomId: roomId,
+          sender: sender,
+          receiver: '',
+          app: 'CHAT',
+          method: 'MESSAGE',
+          params: {username: Rooms[roomId].getUsername(sender), message: params}
+        }));
+      } else if (method === 'REGISTER') {
+          // On register, send back message with active users
+          // and active users in the room
+        MessageRouter.sendPrivateMessage(commsid, JSON.stringify({
+          roomId: roomId,
+          sender: sender,
+          receiver: '',
+          app: 'CHAT',
+          method: 'REGISTER',
+          params: Rooms[roomId].getActiveUsers()
+        }));
       }
+      break;
     }
     case ('AV') : {
         // Get receivers comms ID
