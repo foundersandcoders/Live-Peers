@@ -46,6 +46,29 @@ module.exports = (io) => {
           method: 'REGISTER',
           params: 'SUCCESS'
         }));
+      } else if (method === 'UPDATEPERMISSIONS') {
+        let endpoints = Rooms[roomId].getEndpointsWithPermission('AV');
+        if (endpoints.length < 2) {
+          Rooms[roomId].updatePermissions(sender, ['CHAT', 'AV']);
+          MessageRouter.privateMessage(commsid, JSON.stringify({
+            roomId: roomId,
+            sender: 'SERVER',
+            receiver: sender,
+            app: 'SYSTEM',
+            method: 'UPDATEPERMISSIONS',
+            params: endpoints
+          }));
+        }
+        else {
+          MessageRouter.privateMessage(commsid, JSON.stringify({
+            roomId: roomId,
+            sender: 'SERVER',
+            receiver: sender,
+            app: 'SYSTEM',
+            method: 'UPDATEPERMISSIONS',
+            params: 'DENIED'
+          }));
+        }
       }
       break;
     }
