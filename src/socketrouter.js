@@ -7,7 +7,7 @@ const Comms = require('./socketcomms');
 // Returns the room and the endpoint (as object)
 const locateEndpointIdFromCommsId = (rooms, commsid) => {
   for (let room in rooms) {
-    let endpointSearch = Rooms[room].getEndpointNameFromCommsID(commsid);
+    let endpointSearch = rooms[room].getEndpointNameFromCommsID(commsid);
     if (endpointSearch) {
       return {
         room: room,
