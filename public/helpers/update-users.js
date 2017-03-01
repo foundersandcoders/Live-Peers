@@ -1,15 +1,15 @@
-const updateUsers = (sender, users) => {
-  users.forEach((user) => {
-    if(user.permissions.length == 2){
+const updatePatricipants = (sender, participants) => {
+  participants.forEach((participant) => {
+    if(participant.permissions.length == 2){
       if(mentorExist()){
-        addUser('moderator', user);
+        addParticipant('moderator', participant);
       }
       else{
-        addUser('mentor', user);
+        addParticipant('mentor', participant);
       }
     }
     else{
-      addUser('students', user);
+      addParticipant('students', participant);
     }
   });
 };
@@ -18,14 +18,14 @@ const mentorExist = () => {
   return document.querySelector(".online__mentor-list").hasChildNodes();
 };
 
-const addUser = (type, user) => {
+const addParticipant = (type, participant) => {
   let className = createClassName(type);
-  const newUser = document.createElement("LI");
-  newUser.textContent = user.username;
-  newUser.classList.add("online__user");
+  const newParticipant = document.createElement("LI");
+  newParticipant.textContent = participant.username;
+  newParticipant.classList.add("online__user");
   let list = document.querySelector(className);
   list.innerHTML = '';
-  list.appendChild(newUser);
+  list.appendChild(newParticipant);
 };
 
 const createClassName = (type) =>{
