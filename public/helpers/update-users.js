@@ -1,7 +1,7 @@
 const updateUsers = (sender, users) => {
   users.forEach((user) => {
     if(user.permissions.length == 2){
-      if(!mentorExist()){
+      if(mentorExist()){
         addUser('moderator', user);
       }
       else{
