@@ -11,12 +11,12 @@ const webrtc =  new WebRTC(mycomms);
       }
 */
 
-class WebRTC {
+class AV {
   // Takes comms object initially
   constructor (comms) {
     this.comms = comms;
     this.app = 'AV';
-    this.sys = 'SYSTEM'
+    this.sys = 'SYSTEM';
     this.state = 'IDLE';
     this.party;
     // Register Handlers

@@ -33,6 +33,8 @@
   // Register initial system callback
   myComms.registerHandler('SYSTEM', 'REGISTER', (sender, params) =>{
     // If success then initialise chat.js module
+    const myAV = new AV(myComms);
+    console.log(myAV);
   });
   // Register CommsID
   myComms.send('SYSTEM', 'REGISTER', '', '');
