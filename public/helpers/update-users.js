@@ -21,7 +21,7 @@ const mentorExist = () => {
 const addUser = (type, user) => {
   let className = createClassName(type);
   const newUser = document.createElement("LI");
-  newUser.innerHTML = user.username;
+  newUser.textContent = user.username;
   newUser.classList.add("online__user");
   let list = document.querySelector(className);
   list.appendChild(newUser);
