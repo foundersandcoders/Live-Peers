@@ -105,7 +105,7 @@ module.exports = (io) => {
     // with params as an array of active users
     MessageRouter.globalMessage(JSON.stringify({
       roomId: disconnected.room,
-      sender: 'SYSTEM',
+      sender: 'SERVER',
       receiver: '',
       app: 'CHAT',
       method: 'DISCONNECT',
@@ -115,7 +115,7 @@ module.exports = (io) => {
     // with params as the disconnected message
     MessageRouter.globalMessage(JSON.stringify({
       roomId: disconnected.room,
-      sender: 'SYSTEM',
+      sender: 'SERVER',
       receiver: '',
       app: 'AV',
       method: 'DISCONNECT',
