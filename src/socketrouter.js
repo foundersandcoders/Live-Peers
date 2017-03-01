@@ -100,9 +100,9 @@ module.exports = (io) => {
     }
     case ('AV') : {
         // Get receivers comms ID
-      const receiverCommsId = Rooms[roomId].getCommsID(receiver);
+      const receiverCommsId = Rooms[roomId].getCommsId(receiver);
         // If sender has permissions, then send the message to the receiver
-      if (Rooms[roomId].getPermissions(sender).includes('av')) {
+      if (Rooms[roomId].getPermissions(sender).includes('AV')) {
         MessageRouter.privateMessage(receiverCommsId, msg);
       } else {
         MessageRouter.privateMessage(commsid, JSON.stringify({
