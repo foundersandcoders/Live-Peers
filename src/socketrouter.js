@@ -50,6 +50,7 @@ module.exports = (io) => {
         let endpoints = Rooms[roomId].getEndpointsWithPermissions(params);
         if (endpoints.length < 2) {
           Rooms[roomId].updatePermissions(sender, params);
+          endpoints.push(sender);
           MessageRouter.privateMessage(commsid, JSON.stringify({
             roomId: roomId,
             sender: 'SERVER',
