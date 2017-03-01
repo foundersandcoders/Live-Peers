@@ -8,7 +8,9 @@ const updateUsers = (sender, users) => {
         addUser('mentor', user);
       }
     }
-    addUser('students', user);
+    else{
+      addUser('students', user);
+    }
   });
 };
 
