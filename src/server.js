@@ -1,7 +1,7 @@
 const Hapi = require('hapi');
-const CookieAuth = require('hapi-auth-cookie');
-const Vision = require('vision');
-const Inert = require('inert');
+const cookieauth = require('hapi-auth-cookie');
+const vision = require('vision');
+const inert = require('inert');
 const fs = require('fs');
 const path = require('path');
 const env = require('env2')('./config.env');
@@ -24,7 +24,7 @@ server.connection({
   tls: tls
 });
 
-server.register([Vision, Inert, CookieAuth], (err) => {
+server.register([vision, inert, cookieauth], (err) => {
   if (err) { throw err; }
 
   server.views({
