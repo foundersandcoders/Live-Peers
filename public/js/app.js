@@ -27,4 +27,7 @@
     chatBubble.classList.remove('selected');
     chatWindow.classList.remove('selected');
   });
+
+  // Comms Initialise (using global scope variables)
+  const myComms = new Comms(myRoomId, myEndpointId);
 })();
