@@ -43,7 +43,7 @@ module.exports = (io) => {
           sender: sender,
           receiver: '',
           app: 'SYSTEM',
-          method: 'REGISTER',
+          method: method,
           params: 'SUCCESS'
         }));
       } else if (method === 'UPDATEPERMISSIONS') {
@@ -55,7 +55,7 @@ module.exports = (io) => {
             sender: 'SERVER',
             receiver: sender,
             app: 'SYSTEM',
-            method: 'UPDATEPERMISSIONS',
+            method: method,
             params: endpoints
           }));
         }
@@ -65,7 +65,7 @@ module.exports = (io) => {
             sender: 'SERVER',
             receiver: sender,
             app: 'SYSTEM',
-            method: 'UPDATEPERMISSIONS',
+            method: method,
             params: 'DENIED'
           }));
         }
@@ -80,7 +80,7 @@ module.exports = (io) => {
           sender: sender,
           receiver: '',
           app: 'CHAT',
-          method: 'MESSAGE',
+          method: method,
           params: {username: Rooms[roomId].getUsername(sender), message: params}
         }));
       } else if (method === 'REGISTER') {
@@ -91,7 +91,7 @@ module.exports = (io) => {
           sender: sender,
           receiver: '',
           app: 'CHAT',
-          method: 'REGISTER',
+          method: method,
           params: Rooms[roomId].getActiveUsers()
         }));
       }
