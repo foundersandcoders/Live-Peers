@@ -10,13 +10,13 @@ class Room {
     this.endpoints[endpointId] = {};
   }
   updateUsername (endpointId, username) {
-    this.endpoints[endpointId]['username'] = username;
+    this.endpoints[endpointId].username = username;
   }
   updatePermissions (endpointId, permissions) {
-    this.endpoints[endpointId]['permissions'] = permissions;
+    this.endpoints[endpointId].permissions = permissions;
   }
   updateCommsId (endpointId, commsId) {
-    this.endpoints['endpointId']['commsId'] = commsId;
+    this.endpoints[endpointId].commsId = commsId;
   }
   removeEndpoint (endpointId) {
     delete this.endpoints[endpointId];

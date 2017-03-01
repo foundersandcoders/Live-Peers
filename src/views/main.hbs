@@ -57,42 +57,11 @@
   </div>
 </section>
 
-<!--
-Here we need scripts to load the comms, av and chat modules.
-The endpointId is injected by this view, so can be used to initialise the comms module -->
-<!-- <script></script> -->
-
-<!-- DOM manipulations -->
+<script src="socket.io/socket.io.js"></script>
+<script src="js/comms.js"></script>
 <script type="text/javascript">
-(function(){
-  // Elts
-  const infoText = document.querySelector('.header__info');
-  const popout = document.querySelector('.header__popout');
-  const chatBubble = document.querySelector('.nav__chat');
-  const videoIcon = document.querySelector('.nav__av');
-  const chatWindow = document.querySelector('.apps__chat');
-
-  // Toggle extra info
-  infoText.addEventListener('click', () =>{
-    if (popout.style.display === 'none') {
-      popout.style = ''
-    } else {
-      popout.style.display = 'none'
-    }
-  })
-
-  // When ChatBubble is clicked
-  chatBubble.addEventListener('click', (e) => {
-    chatBubble.classList.add('selected');
-    videoIcon.classList.remove('selected');
-    chatWindow.classList.add('selected');
-  })
-  // When VideoIcon is clicked
-  videoIcon.addEventListener('click', (e) => {
-    videoIcon.classList.add('selected');
-    chatBubble.classList.remove('selected');
-    chatWindow.classList.remove('selected');
-  })
-})();
-
+  // Store on global scope
+  const myEndpointId = "{{endpointId}}";
+  const myRoomId = "{{roomId}}";
 </script>
+<script src="js/app.js"></script>
