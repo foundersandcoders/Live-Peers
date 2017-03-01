@@ -28,34 +28,37 @@ module.exports = (io) => {
     const receiver = parsed.receiver;
     const app = parsed.app;
     const method = parsed.method;
-    // For private messages in WebRTC
+
+    // Message router
     switch (app) {
-    case ('CHAT') : {
+    case ('SYSTEM') : {
       if (method === 'REGISTER') {
-          // Add Comms ID
+          // (When client first registers their endpoint) add Comms ID
         Rooms[roomId].updateCommsId(sender, commsid);
-          // Send global message to other endpoints
-          // Message contains the new user (send)
+          // Send message back to them with active users in the room
           // and active users in the room
-        MessageRouter.sendGlobalMessage(JSON.stringify({
+        MessageRouter.sendPrivateMessage(commsid, JSON.stringify({
           roomId: roomId,
           sender: sender,
           receiver: '',
-          app: 'CHAT',
+          app: 'SYSTEM',
           method: 'REGISTER',
           params: Rooms[roomId].getActiveUsers()
         }));
-      } else if (method === 'MESSAGE') {
-          // Send global message
-        MessageRouter.sendGlobalMessage(msg);
       }
       break;
+    }
+    case ('CHAT') : {
+      if (method === 'MESSAGE') {
+          // Send global chat message
+        MessageRouter.sendGlobalMessage(msg);
+      }
     }
     case ('AV') : {
         // Get receivers comms ID
       const receiverCommsId = Rooms[roomId].getCommsID(receiver);
         // If sender has permissions, then send the message to the receiver
-      if (Rooms[roomId].getPermissions.includes('av')) {
+      if (Rooms[roomId].getPermissions(sender).includes('av')) {
         MessageRouter.sendPrivateMessage(receiverCommsId, msg);
       } else {
         MessageRouter.sendPrivateMessage(commsid, JSON.stringify({
