@@ -28,7 +28,7 @@ const addUser = (type, user) => {
 };
 
 const createClassName = (type) =>{
-  const className = ".class__-list";
+  const className = ".online__-list";
   const position = 8;
   return [className.slice(0, position), type, className.slice(position)].join('');
 };
