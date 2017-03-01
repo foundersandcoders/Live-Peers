@@ -47,9 +47,9 @@ module.exports = (io) => {
           params: 'SUCCESS'
         }));
       } else if (method === 'UPDATEPERMISSIONS') {
-        let endpoints = Rooms[roomId].getEndpointsWithPermission('AV');
+        let endpoints = Rooms[roomId].getEndpointsWithPermissions(params);
         if (endpoints.length < 2) {
-          Rooms[roomId].updatePermissions(sender, ['CHAT', 'AV']);
+          Rooms[roomId].updatePermissions(sender, params);
           MessageRouter.privateMessage(commsid, JSON.stringify({
             roomId: roomId,
             sender: 'SERVER',

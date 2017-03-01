@@ -5,7 +5,7 @@
 const mycomms = new Comms(roomname, endpointid)
 const webrtc =  new WebRTC(mycomms);
       webrtc.addMyMediaStreamToVideo(ownvideoDOMelement)
-      webrtc.peervideo = (peervideoDOMelement)
+      webrtc.peerVideo = (peerVideoDOMelement)
       webrtc.onRTC = () => {
         ownvideoDOMelement.classList.add('make-small')
       }
@@ -38,7 +38,7 @@ class AV {
     this.onEndCall = (func) =>
 
     // Holds peer video output
-    this.peervideo;
+    this.peerVideo;
   }
   // Gets owner media stream (returns a promise)
   getMediaStream () {
@@ -74,8 +74,8 @@ class AV {
     };
     // Add Add stream listener (incoming stream), and append to placeholder video element
     this.pc.onaddstream = (e) => {
-      this.peervideo.srcObject = e.stream;
-      this.peervideo.play();
+      this.peerVideo.srcObject = e.stream;
+      this.peerVideo.play();
       this.onRTC();
     };
     // Add stream for own stream
