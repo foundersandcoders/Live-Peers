@@ -24,6 +24,7 @@ const addUser = (type, user) => {
   newUser.textContent = user.username;
   newUser.classList.add("online__user");
   let list = document.querySelector(className);
+  list.innerHTML = '';
   list.appendChild(newUser);
 };
 
