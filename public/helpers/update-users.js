@@ -1,15 +1,15 @@
 const updateParticipants = (sender, participants) => {
-  participants.forEach((participant) => {
-    if(participant.permissions.includes('AV') && participant.permissions.includes('CHAT')){
+  participants.forEach((participants) => {
+    if(participants.permissions.includes('AV') && participants.permissions.includes('CHAT')){
       if(mentorExist()){
-        addParticipant('moderator', participant);
+        addParticipants('moderator', participants);
       }
       else{
-        addParticipant('mentor', participant);
+        addParticipants('mentor', participants);
       }
     }
-    else if(participant.permissions.length === 1 && participant.permissions.includes('CHAT')){
-      addParticipant('students', participant);
+    else if(participants.permissions.length === 1 && participants.permissions.includes('CHAT')){
+      addParticipants('students', participants);
     }
   });
 };
@@ -18,12 +18,12 @@ const mentorExist = () => {
   return document.querySelector(".online__mentor-list").hasChildNodes();
 };
 
-const addParticipant = (type, participant) => {
-  let className = `participant__${type}-list`;
-  const newParticipant = document.createElement("li");
-  newParticipant.textContent = participant.username;
-  newParticipant.classList.add("participant__");
+const addParticipants = (type, participants) => {
+  let className = `participants__${type}-list`;
+  const newParticipants = document.createElement("li");
+  newParticipants.textContent = participants.username;
+  newParticipants.classList.add("participants__");
   let list = document.querySelector(`.${className}`);
   list.innerHTML = '';
-  list.appendChild(newParticipant);
+  list.appendChild(newParticipants);
 };
