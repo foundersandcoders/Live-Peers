@@ -19,10 +19,10 @@ const mentorExist = () => {
 };
 
 const addParticipant = (type, participant) => {
-  let className = `online__${type}-list`;
+  let className = `participant__${type}-list`;
   const newParticipant = document.createElement("li");
   newParticipant.textContent = participant.username;
-  newParticipant.classList.add("online__user");
+  newParticipant.classList.add("participant__");
   let list = document.querySelector(`.${className}`);
   list.innerHTML = '';
   list.appendChild(newParticipant);

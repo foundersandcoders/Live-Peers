@@ -280,7 +280,7 @@ body {
 
 /*** Tabs ***/
 .messages-tab,
-.online-tab {
+.participant-tab {
     margin: 0;
     padding: 1em;
     display: block;
@@ -292,12 +292,12 @@ body {
     cursor: pointer;
 }
 .messages-tab {left: 0; }
-.online-tab {right: 0;}
+.participant-tab {right: 0;}
 
 
 /** Containers **/
 .chat,
-.online {
+.participant {
     top: 0;
     width: 100%;
     height: 30em;
@@ -347,30 +347,30 @@ body {
     padding: 1em;
     cursor: pointer;
 }
-/*** ONLINE ***/
+/*** participant ***/
 
 /* Container */
-.online {
+.participant {
     padding: 1em;
     height: 30em;
     overflow-y: scroll;
 }
 
 /* Titles */
-.online__mentor,
-.online__moderator,
-.online__students,
-.online__mentor-list,
-.online__moderator-list,
-.online__students-list {
+.participant__mentor,
+.participant__moderator,
+.participant__students,
+.participant__mentor-list,
+.participant__moderator-list,
+.participant__students-list {
     padding: .3em;
 }
-.online__mentor {
+.participant__mentor {
     margin-top: 3em;
 }
 
 /* User */
-.online__user {
+.participant__user {
     color: #BDBDBD;
     list-style: none;
 }
@@ -407,6 +407,6 @@ body {
 
 /* Visible Modifiers */
 .visible.messages-tab,
-.visible.online-tab {
+.visible.participant-tab {
     background-color: white;
 }
