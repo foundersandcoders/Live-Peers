@@ -16,11 +16,12 @@
   const messagesWindow = document.querySelector('.chat');
   const onlineWindow = document.querySelector('.online');
 
-  //Chat Components
+  // Chat Components
   const chatInput = document.querySelector('.chat__input');
   const chatOutput = document.querySelector('.chat__messages');
   const chatForm = document.querySelector('.chat__form');
 
+  // Message Tab Toggle
   messagesTab.addEventListener('click', () =>{
     messagesTab.classList.add('visible');
     messagesWindow.style.display = "block";
@@ -28,6 +29,7 @@
     onlineWindow.style.display = "none";
   });
 
+  // Online Tab Toggle
   onlineTab.addEventListener('click', () =>{
     onlineTab.classList.add('visible');
     onlineWindow.style.display = "block";
@@ -53,50 +55,52 @@
 
   // Comms Initialise (using global scope variables)
   const myComms = new Comms(myRoomId, myEndpointId);
-  // Register initial system callback
+  // Register handler after endpoint has registered its comms ID
   myComms.registerHandler('SYSTEM', 'REGISTER', (sender, params) =>{
-    // If success then initialise chat.js module
+    // Initialise cat & AV Modules
     const myChat = new Chat(myComms, chatInput, chatOutput, chatForm);
-
-    // If success then initialise av.js module
     const myAV = new AV(myComms);
     myAV.peerVideo = peerVideo;
     myAV.onRTC = () => {
       myVideo.classList.add('shrink');
     };
     myAV.onEndCall = () => {
-      // myVideo.classList.remove('shrink');
       AVActive = false;
       chatOnly();
     };
-    // When VideoIcon is clicked
+    // Toggles video icon, shrinks chat window
+    // enables video & updates permissions
+    // (if AV not active)
     videoIcon.addEventListener('click', (e) => {
       videoIcon.classList.add('selected');
       chatBubble.classList.remove('selected');
       chatWindow.classList.remove('selected');
-      if (!AVActive) {
-        myComms.send('SYSTEM', 'UPDATEPERMISSIONS', '', ['CHAT', 'AV']);
-      }
+      myComms.send('SYSTEM', 'UPDATEPERMISSIONS', '', ['CHAT', 'AV']);
     });
+    // Toggles chat icon, sets chat window to full view
+    // enables only chat permissions
     const chatOnly = () => {
       videoIcon.classList.remove('selected');
       chatBubble.classList.add('selected');
       chatWindow.classList.add('selected');
+      myVideo.classList.remove('shrink');
+      AVActive = false;
       myComms.send('SYSTEM', 'UPDATEPERMISSIONS', '', ['CHAT']);
     };
-    const clickHangUp = hangUpButton.addEventListener('click', () => {
+    // Calls the AV modules hang up method
+    hangUpButton.addEventListener('click', () => {
       myAV.hangUp();
     });
+    // After permissions updated to 'av'
     myComms.registerHandler('SYSTEM', 'UPDATEPERMISSIONS', (sender, endpoints) => {
-      if (endpoints.length === 1) {
+      let totalEps = endpoints.length;
+      if (totalEps === 1 || totalEps === 2) {
         myAV.addMyMediaStreamToVideo(myVideo);
         AVActive = true;
-      }
-      else if (endpoints.length === 2) {
-        myAV.addMyMediaStreamToVideo(myVideo);
-        endpoints = endpoints.filter((ep) => ep !== myComms.endpointId);
-        myAV.callEndpoint(endpoints[0]);
-        AVActive = true;
+        if (totalEps === 2) {
+          endpoints = endpoints.filter((ep) => ep !== myComms.endpointId);
+          myAV.callEndpoint(endpoints[0]);
+        }
       }
       else {
         errorMessage.style.display = "block";
