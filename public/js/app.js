@@ -65,7 +65,6 @@
       myVideo.classList.add('shrink');
     };
     myAV.onEndCall = () => {
-      console.log('am i here?');
       // myVideo.classList.remove('shrink');
       AVActive = false;
       chatOnly();
