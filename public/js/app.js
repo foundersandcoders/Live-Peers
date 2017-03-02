@@ -11,6 +11,11 @@
   const messagesWindow = document.querySelector('.chat');
   const onlineWindow = document.querySelector('.online');
 
+  //Chat Components
+  const chatInput = document.querySelector('.chat__input');
+  const chatOutput = document.querySelector('.chat__messages');
+  const chatForm = document.querySelector('.chat__form');
+
   messagesTab.addEventListener('click', () =>{
     messagesTab.classList.add('visible');
     messagesWindow.style.display = "block";
@@ -52,6 +57,7 @@
   // Register initial system callback
   myComms.registerHandler('SYSTEM', 'REGISTER', (sender, params) =>{
     // If success then initialise chat.js module
+    const myChat = new Chat(myComms, chatInput, chatOutput, chatForm);
   });
   // Register CommsID
   myComms.send('SYSTEM', 'REGISTER', '', '');
