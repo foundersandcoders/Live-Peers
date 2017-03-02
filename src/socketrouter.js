@@ -43,19 +43,20 @@ module.exports = (io) => {
           sender: sender,
           receiver: '',
           app: 'SYSTEM',
-          method: 'REGISTER',
+          method: method,
           params: 'SUCCESS'
         }));
       } else if (method === 'UPDATEPERMISSIONS') {
-        let endpoints = Rooms[roomId].getEndpointsWithPermission('AV');
+        let endpoints = Rooms[roomId].getEndpointsWithPermissions(params);
         if (endpoints.length < 2) {
-          Rooms[roomId].updatePermissions(sender, ['CHAT', 'AV']);
+          Rooms[roomId].updatePermissions(sender, params);
+          endpoints.push(sender);
           MessageRouter.privateMessage(commsid, JSON.stringify({
             roomId: roomId,
             sender: 'SERVER',
             receiver: sender,
             app: 'SYSTEM',
-            method: 'UPDATEPERMISSIONS',
+            method: method,
             params: endpoints
           }));
         }
@@ -65,7 +66,7 @@ module.exports = (io) => {
             sender: 'SERVER',
             receiver: sender,
             app: 'SYSTEM',
-            method: 'UPDATEPERMISSIONS',
+            method: method,
             params: 'DENIED'
           }));
         }
@@ -80,7 +81,7 @@ module.exports = (io) => {
           sender: sender,
           receiver: '',
           app: 'CHAT',
-          method: 'MESSAGE',
+          method: method,
           params: {username: Rooms[roomId].getUsername(sender), message: params}
         }));
       } else if (method === 'REGISTER') {
@@ -91,7 +92,7 @@ module.exports = (io) => {
           sender: sender,
           receiver: '',
           app: 'CHAT',
-          method: 'REGISTER',
+          method: method,
           params: Rooms[roomId].getActiveUserDetails()
         }));
       }
@@ -99,9 +100,9 @@ module.exports = (io) => {
     }
     case ('AV') : {
         // Get receivers comms ID
-      const receiverCommsId = Rooms[roomId].getCommsID(receiver);
+      const receiverCommsId = Rooms[roomId].getCommsId(receiver);
         // If sender has permissions, then send the message to the receiver
-      if (Rooms[roomId].getPermissions(sender).includes('av')) {
+      if (Rooms[roomId].getPermissions(sender).includes('AV')) {
         MessageRouter.privateMessage(receiverCommsId, msg);
       } else {
         MessageRouter.privateMessage(commsid, JSON.stringify({

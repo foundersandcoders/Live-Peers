@@ -40,12 +40,12 @@ class Room {
       }
     }
   }
-  getEndpointsWithPermission (permission) {
+  getEndpointsWithPermissions (perms) {
     let endpoints = [];
-    for (let endpoint in this.endpoints) {
-      let permissions = this.endpoints[endpoint].permissions;
-      if (permissions.includes(permission)) {
-        endpoints.push(endpoint);
+    for (let ep in this.endpoints) {
+      let epPerms = this.endpoints[ep].permissions;
+      if (epPerms.length == perms.length && epPerms.every((v, i) => v === perms[i])) {
+        endpoints.push(ep);
       }
     }
     return endpoints;
