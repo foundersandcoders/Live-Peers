@@ -1,4 +1,4 @@
-const updatePatricipants = (sender, participants) => {
+const updateParticipants = (sender, participants) => {
   participants.forEach((participant) => {
     if(participant.permissions.includes('AV') && participant.permissions.includes('CHAT')){
       if(mentorExist()){
