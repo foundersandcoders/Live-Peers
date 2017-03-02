@@ -8,9 +8,9 @@ class Chat {
     this.sys = 'SYSTEM';
 
     comms.send(this.app, 'REGISTER', this.sys, 'JOINED');
-    comms.registerHandler(this.app, 'REGISTER', updateParticipants(sender, users)); //data: object with username and message
-    comms.registerHandler(this.app, 'MESSAGE', displayTextMessage(data));
-    comms.registerHandler(this.app, 'DISCONNECT', updateParticipants(sender, users));
+    comms.registerHandler(this.app, 'REGISTER', updateParticipants); //data: object with username and message
+    comms.registerHandler(this.app, 'MESSAGE', displayTextMessage);
+    comms.registerHandler(this.app, 'DISCONNECT', updateParticipants);
 
     this.form.onsubmit = (e) => {
       e.preventDefault();
