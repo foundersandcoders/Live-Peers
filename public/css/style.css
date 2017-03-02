@@ -385,7 +385,7 @@ body {
     position: relative;
     left: -5%;
     opacity: 0;
-    animation: slidein .3s ease forwards;
+    animation: slidein .15s ease forwards;
 }
 
 @keyframes slidein {
