@@ -35,5 +35,11 @@ Enabling participation:
 
 Head [here](docs/sprint1/sprint1.md) for details.
 
+### Design
+Check out these designs to have an idea of how we would ideally like LivePeers to look like. 
+
+Here is the [invision link](https://invis.io/2HAKH3WCN), click the mockup to see how the flows works or check out the [Mockups folder](https://github.com/foundersandcoders/Live-Peers/tree/master/docs/sprint1/Mockups) in our repository to see the screen grabs of the designs.
+
+
 ## FUTURE SPRINTS
 Full [list of ideas](docs/future-sprints/future-sprints.md) for where we want this to go.
