@@ -93,7 +93,7 @@ module.exports = (io) => {
           receiver: '',
           app: 'CHAT',
           method: method,
-          params: Rooms[roomId].getActiveUsers()
+          params: Rooms[roomId].getActiveUserDetails()
         }));
       }
       break;
