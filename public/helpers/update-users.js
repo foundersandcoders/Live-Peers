@@ -24,7 +24,6 @@ const addParticipant = (type, participant) => {
   newParticipant.textContent = participant.username;
   newParticipant.classList.add("online__user");
   let list = document.querySelector(className);
-  console.log(className);
   list.innerHTML = '';
   list.appendChild(newParticipant);
 };
