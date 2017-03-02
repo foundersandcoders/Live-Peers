@@ -193,7 +193,7 @@ class AV {
     }
   }
   // Function called by client side handler
-  hangup () {
+  hangUp () {
     if ((this.state == 'RX' || this.state == 'TX') && this.pc != null) {
       this.comms.send(this.app, 'END_CALL', this.party, '');
       this.endCall();

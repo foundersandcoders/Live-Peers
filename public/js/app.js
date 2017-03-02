@@ -9,6 +9,7 @@
   const myVideo = document.querySelector('.av__my-video');
   const errorMessage = document.querySelector('.av__error-message');
   const peerVideo = document.querySelector('.av__peer-video');
+  const hangUpButton = document.querySelector('.av__hangup-button');
 
   // Toggle extra info
   infoText.addEventListener('click', () =>{
@@ -37,8 +38,10 @@
       myVideo.classList.add('shrink');
     };
     myAV.onEndCall = () => {
-      myVideo.classList.remove('shrink');
+      console.log('am i here?');
+      // myVideo.classList.remove('shrink');
       AVActive = false;
+      chatOnly();
     };
     // When VideoIcon is clicked
     videoIcon.addEventListener('click', (e) => {
@@ -48,6 +51,15 @@
       if (!AVActive) {
         myComms.send('SYSTEM', 'UPDATEPERMISSIONS', '', ['CHAT', 'AV']);
       }
+    });
+    const chatOnly = () => {
+      videoIcon.classList.remove('selected');
+      chatBubble.classList.add('selected');
+      chatWindow.classList.add('selected');
+      myComms.send('SYSTEM', 'UPDATEPERMISSIONS', '', ['CHAT']);
+    };
+    const clickHangUp = hangUpButton.addEventListener('click', () => {
+      myAV.hangUp();
     });
     myComms.registerHandler('SYSTEM', 'UPDATEPERMISSIONS', (sender, endpoints) => {
       if (endpoints.length === 1) {
