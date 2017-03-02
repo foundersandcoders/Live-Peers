@@ -1,4 +1,4 @@
-const displayTextMessage = (data) => {
+const displayTextMessage = (sender, data) => {
   let messageWrapper = document.createElement('div');
   let usernameSpan = document.createElement('span');
   let messageSpan = document.createElement('span');

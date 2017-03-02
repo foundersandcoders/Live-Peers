@@ -382,6 +382,14 @@ body {
     flex-direction: row;
     align-items: center;
     margin: 1em 0;
+    position: relative;
+    left: -5%;
+    opacity: 0;
+    animation: slidein .15s ease forwards;
+}
+
+@keyframes slidein {
+    100% {opacity: 1; left: 0%;}
 }
 
 .chat__message-username {
