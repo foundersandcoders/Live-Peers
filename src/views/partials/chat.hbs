@@ -1,34 +1,36 @@
-<h1>{{pin}}</h1>
-<div class="chat">
-  <div class="chat__window">
-    <div class="chat__messages">
-      <!-- username:message -->
-    </div>
-    <form class="chat__form">
-      <input type="text" class="chat__input">
-      <input type="submit" class="chat__send" value="send">
-    </form>
-  </div>
+<!-- Messages Tab -->
+<h3 class="visible messages-tab">Messages</h3>
 
-  <div class="online">
-    <div class="online__mentor">
-      <h1 class="online__header">Mentor</h1>
-      <ul class="online__mentor-list">
-        <!-- Mentor -->
-      </ul>
-    </div>
-    <div class="online__moderator">
-      <h1 class="online__header">Moderator</h1>
-      <ul class="online__moderator-list">
-        <!-- Moderator -->
-      </ul>
-    </div>
-    <div class="online__students">
-      <h1 class="online__header">Students</h1>
-      <ul class="online__students-list">
-        <!-- Students -->
-      </ul>
-    </div>
+<!-- Chat Window-->
+<div class="visible chat">
+  <div class="chat__messages">
   </div>
 </div>
 
+<!-- Form -->
+<form class="chat__form">
+    <input type="text" class="chat__input" placeholder="Type a message">
+    <button type="submit" class="chat__send" value="send">Send</button>
+</form>
+
+<!-- Messages Tab -->
+<h3 class="online-tab">Online</h3>
+
+<!-- Online Window -->
+<div class="online" style="display: none;">
+  <div class="online__mentor">
+    <h2 class="online__header">Mentor</h1>
+    <ul class="online__mentor-list">
+    </ul>
+  </div>
+  <div class="online__moderator">
+    <h2 class="online__header">Moderator</h1>
+    <ul class="online__moderator-list">
+    </ul>
+  </div>
+  <div class="online__students">
+    <h2 class="online__header">Students</h1>
+    <ul class="online__students-list">
+    </ul>
+  </div>
+</div>

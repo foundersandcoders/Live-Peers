@@ -6,6 +6,25 @@
   const videoIcon = document.querySelector('.nav__av');
   const chatWindow = document.querySelector('.apps__chat');
 
+  const messagesTab = document.querySelector('.messages-tab');
+  const onlineTab = document.querySelector('.online-tab');
+  const messagesWindow = document.querySelector('.chat');
+  const onlineWindow = document.querySelector('.online');
+
+  messagesTab.addEventListener('click', () =>{
+    messagesTab.classList.add('visible');
+    messagesWindow.style.display = "block";
+    onlineTab.classList.remove('visible');
+    onlineWindow.style.display = "none";
+  });
+
+  onlineTab.addEventListener('click', () =>{
+    onlineTab.classList.add('visible');
+    onlineWindow.style.display = "block";
+    messagesTab.classList.remove('visible');
+    messagesWindow.style.display = "none";
+  });
+
   // Toggle extra info
   infoText.addEventListener('click', () =>{
     if (popout.style.display === 'none') {
