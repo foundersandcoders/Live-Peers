@@ -33,6 +33,13 @@ class Room {
   getPermissions (endpointId) {
     return this.endpoints[endpointId].permissions;
   }
+  getAllEndpoints () {
+    let eps = [];
+    for (let endpoint in this.endpoints) {
+      eps.push(endpoint);
+    }
+    return eps;
+  }
   getEndpointNameFromCommsID (commsId) {
     for (let props in this.endpoints) {
       if (this.endpoints[props].commsId === commsId) {

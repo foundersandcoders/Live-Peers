@@ -93,7 +93,10 @@ module.exports = (io) => {
           receiver: '',
           app: 'CHAT',
           method: method,
-          params: Rooms[roomId].getActiveUserDetails()
+          params: {
+            endpoints: Rooms[roomId].getAllEndpoints(),
+            username: Rooms[roomId].getUsername(sender)
+          }
         }));
       }
       break;

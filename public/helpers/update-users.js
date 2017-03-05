@@ -1,27 +1,19 @@
-const updateParticipants = (sender, participants) => {
-  participants.forEach((participants) => {
-    if(participants.permissions.includes('AV') && participants.permissions.includes('CHAT')){
-      if(mentorExist()){
-        addParticipants('moderator', participants);
-      }
-      else{
-        addParticipants('mentor', participants);
-      }
-    }
-    else if(participants.permissions.length === 1 && participants.permissions.includes('CHAT')){
-      addParticipants('students', participants);
-    }
-  });
+const updateParticipants = (sender, params) => {
+  if (params.endpoints.length === 1) {
+    addParticipants('mentor', params.username);
+  }
+  else if (params.endpoints.length === 2) {
+    addParticipants('moderator', params.username);
+  }
+  else {
+    addParticipants('students', params.username);
+  }
 };
 
-const mentorExist = () => {
-  return document.querySelector(".online__mentor-list").hasChildNodes();
-};
-
-const addParticipants = (type, participants) => {
+const addParticipants = (type, username) => {
   let className = `participants__${type}-list`;
   const newParticipants = document.createElement("li");
-  newParticipants.textContent = participants.username;
+  newParticipants.textContent = username;
   newParticipants.classList.add("participants__");
   let list = document.querySelector(`.${className}`);
   list.innerHTML = '';
