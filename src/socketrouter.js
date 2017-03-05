@@ -87,7 +87,7 @@ module.exports = (io) => {
       } else if (method === 'REGISTER') {
           // On register, send back message with active users
           // and active users in the room
-        MessageRouter.privateMessage(commsid, JSON.stringify({
+        MessageRouter.globalMessage(JSON.stringify({
           roomId: roomId,
           sender: sender,
           receiver: '',
