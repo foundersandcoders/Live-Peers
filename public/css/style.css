@@ -14,6 +14,23 @@ body {
   outline: 0;
 }
 
+/***************/
+/*** Landing ***/
+/***************/
+
+.landing-bg {
+  background-image: url('/images/landing_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: -1;
+}
+
+
+
 /**************/
 /*** Header ***/
 /**************/
