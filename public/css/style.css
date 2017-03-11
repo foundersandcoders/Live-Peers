@@ -32,12 +32,57 @@ body {
 /*** Landing ***/
 /***************/
 
+/* Container */
 .landing {
-  border: 1px solid red;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 45em;
 }
+/* Header */
+.landing__header {
+  color: white;
+  font-weight: 300;
+  font-size: 3em;
+  letter-spacing: .1em;
+}
+/* Subheader */
+.landing__subheader {
+  color: white;
+  font-weight: 300;
+  font-size: 1.5em;
+}
+/* Input */
+.landing__input {
+  width: 20em;
+  background: 0;
+  border: 2px solid white;
+  padding: .7em;
+  margin: 1em;
+  color: white;
+}
+/* Placeholder */
+.landing__input::-webkit-input-placeholder {
+  color: #eeeeee;
+  font-weight: 100;
+}
+
+/* Submit */
+.landing__submit {
+  color: #00BCD4;
+  font-size: .9em;
+  padding: 1em;
+  background: white;
+  border: none;
+  border-radius: 2em;
+  width: 8em;
+  margin: 1em;
+  cursor: pointer;
+}
+
+
 
 
 

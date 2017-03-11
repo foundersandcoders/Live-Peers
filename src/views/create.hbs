@@ -7,15 +7,15 @@
 
   <form class="landing__form" action="/create" method="post">
     <label class="landing__label" for="username">Username</label>
-      <input id="username" name="username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{3,25}$" title="Username should be a minimum of three alphanumeric characters, with no spaces"/>
+      <input class="landing__input" id="username" name="username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{3,25}$" title="Username should be a minimum of three alphanumeric characters, with no spaces"/>
     <br />
     <label class="landing__label" for="password">Password</label>
-      <input id="password" name="password" type="password" placeholder="Enter your password" />
+      <input class="landing__input" id="password" name="password" type="password" placeholder="Enter your password" />
     <br />
     <label class="landing__label" for="roomName">Session name</label>
-      <input id="roomName" name="roomName" type="text" placeholder="Enter a session name" pattern="^[A-Za-z0-9\s]+$" title="Session name should be a mimum of three alphanumeric characters, and can have spaces"/>
+      <input class="landing__input" id="roomName" name="roomName" type="text" placeholder="Enter a session name" pattern="^[A-Za-z0-9\s]+$" title="Session name should be a mimum of three alphanumeric characters, and can have spaces"/>
     <br />
     <label class="landing__label" for="submit">Submit</label>
-      <buton type="submit">Submit</button>
+      <button class="landing__submit" type="submit">Submit</button>
   </form>
 </div>
