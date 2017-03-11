@@ -81,11 +81,7 @@ body {
   margin: 1em;
   cursor: pointer;
 }
-
-
-
-
-
+/* CSS Label Hide */
 .landing__label {
   position: absolute;
   left:-9999px;
@@ -191,6 +187,27 @@ body {
   font-weight: 400;
   width: 35%;
   text-align: right;
+}
+
+
+/*** Landing Modifiers ***/
+.header--landing {
+  background-color: transparent;
+  justify-content: flex-end;
+  position: fixed;
+  padding: 2.5em;
+  font-size: 1em;
+  width: 100vw;
+  border-bottom: 1px solid white;
+  color: white;
+  font-weight: 300;
+}
+
+.header--landing .header__logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 3.5em;
 }
 
 
