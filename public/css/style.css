@@ -240,6 +240,7 @@ body {
   align-items: center;
   font-size: 1.2em;
   width: 5em;
+  background: linear-gradient(to bottom, #a987e5 0%,#8cd3db 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 /** Nav link (icon container) **/
 
@@ -254,15 +255,17 @@ body {
 }
 
 /* Icon */
-.nav__chat-icon,
-.nav__av-icon {
+.nav__chat-icon {
+  color: white;
   font-size: 2em;
-  color: #9E9E9E;
 }
-
-
 .nav__av-icon {
+  color: white;
   font-size: 2.5em;
+}
+.nav__code-icon {
+  color: white;
+  font-size: 1.5em;
 }
 
 
@@ -305,7 +308,12 @@ body {
 .selected.nav__av,
 .selected.nav__chat  {
   border-left: 4px solid #81D4FA;
-  background-color: #EEEEEE;
+  background-color: rgba(255,255,255,0.8);
+}
+.selected.nav__chat .nav__chat-icon
+.selected.nav__chat .nav__av-icon
+.selected.nav__chat .nav__code-icon  {
+  color: #81D4FA;
 }
 
 .selected.apps__chat {
