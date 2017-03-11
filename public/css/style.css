@@ -54,6 +54,11 @@ body {
   font-weight: 300;
   font-size: 1.5em;
 }
+/* Error */
+.landing__error {
+  color: #D32F2F;
+  font-weight: 300;
+}
 /* Input */
 .landing__input {
   width: 20em;
@@ -62,6 +67,11 @@ body {
   padding: .7em;
   margin: 1em;
   color: white;
+}
+/* (Hidden) Input */
+.landing__input--hidden {
+  position: absolute;
+  left: -999px;
 }
 /* Placeholder */
 .landing__input::-webkit-input-placeholder {
