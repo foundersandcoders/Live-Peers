@@ -29,6 +29,10 @@ body {
   z-index: -1;
 }
 
+.landing__label {
+  position: absolute;
+  left:-9999px;
+}
 
 
 /**************/
