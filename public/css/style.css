@@ -229,7 +229,7 @@ body {
 .main {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 6em);
+  height: calc(100vh - 5em);
 }
 
 /*** Nav ***/
