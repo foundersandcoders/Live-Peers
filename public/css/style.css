@@ -14,11 +14,9 @@ body {
   outline: 0;
 }
 
-/***************/
-/*** Landing ***/
-/***************/
+/*** Backgrounds ***/
 
-.landing-bg {
+.livepeers-bg {
   background-image: url('/images/landing_bg.png');
   background-size: cover;
   background-position: center;
@@ -28,6 +26,20 @@ body {
   position: absolute;
   z-index: -1;
 }
+
+
+/***************/
+/*** Landing ***/
+/***************/
+
+.landing {
+  border: 1px solid red;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
 
 .landing__label {
   position: absolute;
