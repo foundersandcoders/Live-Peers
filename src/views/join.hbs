@@ -1,19 +1,26 @@
 {{>nav}}
-<h1 class="login__welcome-text">Welcome to LivePeers</h1>
-<h2 class="login__join-text">Join {{roomName}}</h2>
-{{#if wrongRoomMessage}}
-  <p class="login__wrong-room">{{wrongRoomMessage}}</p>
+<div class="livepeers-bg"></div>
 
-{{else}}
-  <form class="login" action="/join" method="post">
-    <label class="join-form__label" for="username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{3,25}$">Username</label>
-    <input class="join-form__input" id="username" type="text" placeholder="username" name="username"></input>
-    <input type="text" hidden value="{{roomId}}" name="roomId"/>
-    <button type="submit">Join room</button>
-  </form>
+<div class="landing">
+  <h1 class="landing__header">Welcome to LivePeers</h1>
+  <h2 class="landing__subheader">Join {{roomName}}</h2>
+  {{#if wrongRoomMessage}}
+  <h3 class="landing__error">{{wrongRoomMessage}}</h3>
 
-  {{#if errorMessage}}
-    <p>{{errorMessage}}</p>
+  {{else}}
+    <form class="landing__form" action="/join" method="post">
+      <label class="landing__label" for="username" type="text" placeholder="Enter your username" pattern="^[A-Za-z0-9]{3,25}$">Username</label>
+        <input class="landing__input" id="username" type="text" placeholder="username" name="username"></input>
+      <br />
+        <input class="landing__input--hidden" type="text" hidden value="{{roomId}}" name="roomId"/>
+      <br />
+      <button class="landing__submit" type="submit">Join</button>
+    </form>
+    </form>
+
+    {{#if errorMessage}}
+      <h3 class="landing__error">{{errorMessage}}</h3>
+    {{/if}}
+
   {{/if}}
-
-{{/if}}
+</div>

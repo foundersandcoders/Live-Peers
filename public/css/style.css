@@ -14,6 +14,90 @@ body {
   outline: 0;
 }
 
+/*** Backgrounds ***/
+
+.livepeers-bg {
+  background-image: url('/images/landing_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: -1;
+}
+
+
+/***************/
+/*** Landing ***/
+/***************/
+
+/* Container */
+.landing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 45em;
+}
+/* Header */
+.landing__header {
+  color: white;
+  font-weight: 300;
+  font-size: 3em;
+  letter-spacing: .1em;
+}
+/* Subheader */
+.landing__subheader {
+  color: white;
+  font-weight: 300;
+  font-size: 1.5em;
+}
+/* Error */
+.landing__error {
+  color: #D32F2F;
+  font-weight: 300;
+}
+/* Input */
+.landing__input {
+  width: 20em;
+  background: 0;
+  border: 2px solid white;
+  padding: .7em;
+  margin: 1em;
+  color: white;
+}
+/* (Hidden) Input */
+.landing__input--hidden {
+  position: absolute;
+  left: -999px;
+}
+/* Placeholder */
+.landing__input::-webkit-input-placeholder {
+  color: #eeeeee;
+  font-weight: 100;
+}
+
+/* Submit */
+.landing__submit {
+  color: #00BCD4;
+  font-size: .9em;
+  padding: 1em;
+  background: white;
+  border: none;
+  border-radius: 2em;
+  width: 8em;
+  margin: 1em;
+  cursor: pointer;
+}
+/* CSS Label Hide */
+.landing__label {
+  position: absolute;
+  left:-9999px;
+}
+
+
 /**************/
 /*** Header ***/
 /**************/
@@ -116,6 +200,27 @@ body {
 }
 
 
+/*** Landing Modifiers ***/
+.header--landing {
+  background-color: transparent;
+  justify-content: flex-end;
+  position: fixed;
+  padding: 2.5em;
+  font-size: 1em;
+  width: 100vw;
+  border-bottom: 1px solid white;
+  color: white;
+  font-weight: 300;
+}
+
+.header--landing .header__logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 3.5em;
+}
+
+
 /****************/
 /***** MAIN *****/
 /****************/
@@ -124,7 +229,7 @@ body {
 .main {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 6em);
+  height: calc(100vh - 5em);
 }
 
 /*** Nav ***/
@@ -135,6 +240,7 @@ body {
   align-items: center;
   font-size: 1.2em;
   width: 5em;
+  background: linear-gradient(to bottom, #a987e5 0%,#8cd3db 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 /** Nav link (icon container) **/
 
@@ -149,15 +255,17 @@ body {
 }
 
 /* Icon */
-.nav__chat-icon,
-.nav__av-icon {
+.nav__chat-icon {
+  color: white;
   font-size: 2em;
-  color: #9E9E9E;
 }
-
-
 .nav__av-icon {
+  color: white;
   font-size: 2.5em;
+}
+.nav__code-icon {
+  color: white;
+  font-size: 1.5em;
 }
 
 
@@ -200,7 +308,12 @@ body {
 .selected.nav__av,
 .selected.nav__chat  {
   border-left: 4px solid #81D4FA;
-  background-color: #EEEEEE;
+  background-color: rgba(255,255,255,0.8);
+}
+.selected.nav__chat .nav__chat-icon
+.selected.nav__chat .nav__av-icon
+.selected.nav__chat .nav__code-icon  {
+  color: #81D4FA;
 }
 
 .selected.apps__chat {
@@ -228,6 +341,9 @@ body {
   top: 0;
   right: 0;
   transition: all .2s ease;
+}
+.av__my-video {
+    background-color: black;
 }
 
 
@@ -270,6 +386,7 @@ body {
     width: 10em;
     height: 10em;
     margin: 1em;
+    background-color: rgba(0,0,0,0);
 }
 
 
@@ -300,7 +417,6 @@ body {
 .participants {
     top: 0;
     width: 100%;
-    height: 30em;
     overflow-y: scroll;
     position: absolute;
 }
