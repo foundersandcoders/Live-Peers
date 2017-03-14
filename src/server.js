@@ -34,7 +34,6 @@ server.register([vision, inert, cookieauth], (err) => {
     relativeTo: __dirname,
     path: 'views',
     layoutPath: 'views/layout/',
-    helpersPath: 'views/helpers/',
     layout: 'layout',
     partialsPath: 'views/partials/'
   });
