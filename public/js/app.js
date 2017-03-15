@@ -12,9 +12,9 @@
   const hangUpButton = document.querySelector('.av__hangup-button');
 
   const messagesTab = document.querySelector('.messages-tab');
-  const onlineTab = document.querySelector('.online-tab');
+  const participantsTab = document.querySelector('.participants-tab');
   const messagesWindow = document.querySelector('.chat');
-  const onlineWindow = document.querySelector('.online');
+  const participantsWindow = document.querySelector('.participants');
 
   // Chat Components
   const chatInput = document.querySelector('.chat__input');
@@ -25,14 +25,13 @@
   messagesTab.addEventListener('click', () =>{
     messagesTab.classList.add('visible');
     messagesWindow.style.display = "block";
-    onlineTab.classList.remove('visible');
-    onlineWindow.style.display = "none";
+    participantsTab.classList.remove('visible');
+    participantsWindow.style.display = "none";
   });
 
-  // Online Tab Toggle
-  onlineTab.addEventListener('click', () =>{
-    onlineTab.classList.add('visible');
-    onlineWindow.style.display = "block";
+  participantsTab.addEventListener('click', () =>{
+    participantsTab.classList.add('visible');
+    participantsWindow.style.display = "block";
     messagesTab.classList.remove('visible');
     messagesWindow.style.display = "none";
   });
